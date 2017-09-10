@@ -51,9 +51,9 @@ static int cmd_info(char *args) {
 			   reg_w(R_AX),reg_w(R_CX),reg_w(R_DX),reg_w(R_BX));
 		printf("SP:  %X\tDP:  %X\tSI:  %X\tDI:  %X\n",
 		       reg_w(R_SP),reg_w(R_BP),reg_w(R_SI),reg_w(R_DI));
-		printf("AH:  %X\tCH:  %X\tDH:  %X\tBH:  %X\n",
+		printf("AH:  %X\t\tCH:  %X\t\tDH:  %X\t\tBH:  %X\n",
 			   reg_b(R_AH),reg_b(R_CH),reg_b(R_DH),reg_b(R_BH));
-		printf("AL:  %X\tCL:  %X\tDL:  %X\tBL:  %X\n",
+		printf("AL:  %X\t\tCL:  %X\t\tDL:  %X\t\tBL:  %X\n",
 			   reg_b(R_AL),reg_b(R_CL),reg_b(R_DL),reg_b(R_BL));
 
 	}
