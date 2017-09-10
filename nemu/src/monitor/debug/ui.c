@@ -55,6 +55,7 @@ static int cmd_info(char *args) {
 			   reg_b(R_AL),reg_b(R_CL),reg_b(R_DL),reg_b(R_BL)
 			  );
     */
+		printf("ok\n");
 	}
 	return 0;
 }
