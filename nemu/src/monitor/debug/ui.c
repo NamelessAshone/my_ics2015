@@ -40,20 +40,22 @@ static int cmd_si(char *args) {
 	return 0;
 }
 static int cmd_info(char *args) {
-	if(strcmp(args,"r") == 0) {
-		printf("EAX %X\tECX %X\tEDX %X\tEBX %X\n",
+	if(args == NULL) {
+	
+	}else if(strcmp(args,"r") == 0) {
+		printf("EAX: %X\tECX: %X\tEDX: %X\tEBX: %X\n",
 			   cpu.eax,cpu.ecx,cpu.edx,cpu.ebx);
-		printf("ESP %X\tEBP %X\tESI %X\tEDI %X\n",
+		printf("ESP: %X\tEBP: %X\tESI: %X\tEDI: %X\n",
 			   cpu.esp,cpu.ebp,cpu.esi,cpu.edi);
-		printf("AX  %X\tCX  %X\tDX  %X\tBX  %X\n",
+		printf("AX:  %X\tCX:  %X\tDX:  %X\tBX:  %X\n",
 			   reg_w(R_AX),reg_w(R_CX),reg_w(R_DX),reg_w(R_BX));
-		printf("SP  %X\tDP  %X\tSI  %X\tDI  %X\n",
+		printf("SP:  %X\tDP:  %X\tSI:  %X\tDI:  %X\n",
 		       reg_w(R_SP),reg_w(R_BP),reg_w(R_SI),reg_w(R_DI));
-		printf("AH  %X\tCH  %X\tDH  %X\tBH  %X\n",
+		printf("AH:  %X\tCH:  %X\tDH:  %X\tBH:  %X\n",
 			   reg_b(R_AH),reg_b(R_CH),reg_b(R_DH),reg_b(R_BH));
-		printf("AL  %X\tCL  %X\tDL  %X\tBL  %X\n",
+		printf("AL:  %X\tCL:  %X\tDL:  %X\tBL:  %X\n",
 			   reg_b(R_AL),reg_b(R_CL),reg_b(R_DL),reg_b(R_BL));
-		printf("ok\n");
+
 	}
 	return 0;
 }
