@@ -41,7 +41,7 @@ static int cmd_si(char *args) {
 }
 static int cmd_info(char *args) {
 	if(strcmp(args,"r") == 0) {
-		printf("EAX %X\tECX %X\tEDX %X\tEBX %X\n"
+	/*	printf("EAX %X\tECX %X\tEDX %X\tEBX %X\n"
 			   "ESP %X\tEBP %X\tESI %X\tEDI %X\n"
 			   "AX  %X\tCX  %X\tDX  %X\tBX  %X\n"
 			   "SP  %X\tDP  %X\tSI  %X\tDI  %X\n"
@@ -54,10 +54,11 @@ static int cmd_info(char *args) {
 			   reg_b(R_AH),reg_b(R_CH),reg_b(R_DH),reg_b(R_BH),
 			   reg_b(R_AL),reg_b(R_CL),reg_b(R_DL),reg_b(R_BL)
 			  );
-
+    */
 	}
 	return 0;
 }
+
 static int cmd_help(char *args);
 
 static struct {
@@ -82,9 +83,9 @@ static int cmd_help(char *args) {
 	char *arg = strtok(NULL, " ");
 	int i;
 
-	if(arg == NULL) {
+ 	if(arg == NULL) {
 		/* no argument given */
-		for(i = 0; i < NR_CMD; i ++) {
+ 		for(i = 0; i < NR_CMD; i ++) {
 			printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
 		}
 	}
