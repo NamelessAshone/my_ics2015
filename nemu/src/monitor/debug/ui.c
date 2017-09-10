@@ -16,7 +16,7 @@ char* rl_gets() {
 	if (line_read) {
 		free(line_read);
 		line_read = NULL;
-	}
+ 	}
 
 	line_read = readline("(nemu) ");
 
@@ -39,6 +39,25 @@ static int cmd_si(char *args) {
 	cpu_exec(1);
 	return 0;
 }
+static int cmd_info(char *args) {
+	if(strcmp(args,"r") == 0){
+		printf("EAX %X\tECX %X\tEDX %X\tEBX %X\n"
+			   "ESP %X\tEBP %X\tESI %X\tEDI %X\n"
+			   "AX  %X\tCX  %X\tDX  %X\tBX  %X\n"
+			   "SP  %X\tDP  %X\tSI  %X\tDI  %X\n"
+			   "AH  %X\tCH  %X\tDH  %X\tBH  %X\n"
+			   "AL  %X\tCL  %X\tDL  %X\tBL  %X\n",
+				  cpu.eax,cpu.ecx,cpu.edx,cpu.ebx,
+				  cpu.esp,cpu.ebp,cpu.esi,cpu.edi,
+				  reg_w(R_AX),reg_w(R_CX),reg_w(R_DX),reg_w(R_BX),
+				  reg_w(R_SP),reg_w(R_BP),reg_w(R_SI),reg_w(R_DI),
+				  reg_b(R_AH),reg_b(R_CH),reg_b(R_DH),reg_b(R_BH),
+				  reg_b(R_AL),reg_b(R_CL),reg_b(R_DL),reg_b(R_BL)
+				  );
+		return 0;
+	}
+	return 0;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -49,7 +68,8 @@ static struct {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
-	{ "si", "Run by sigle-step", cmd_si},
+	{ "si", "Sigle-step run", cmd_si},
+	{ "info","Print cpu's information", cmd_info},
 	/* TODO: Add more commands */
 
 };
