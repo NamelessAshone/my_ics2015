@@ -43,17 +43,17 @@ static int cmd_info(char *args) {
 	if(args == NULL) {
 	
 	}else if(strcmp(args,"r") == 0) {
-		printf("EAX: %8X\tECX: %8X\tEDX: %8X\tEBX: %8X\n",
+		printf("EAX: 0x%08X\tECX: 0x%08X\tEDX: 0x%08X\tEBX: 0x%08X\n",
 			   cpu.eax,cpu.ecx,cpu.edx,cpu.ebx);
-		printf("ESP: %8X\tEBP: %8X\tESI: %8X\tEDI: %8X\n",
+		printf("ESP: 0x%08X\tEBP: 0x%08X\tESI: 0x%08X\tEDI: 0x%08X\n",
 			   cpu.esp,cpu.ebp,cpu.esi,cpu.edi);
-		printf("AX:  %8X\tCX:  %8X\tDX:  %8X\tBX:  %8X\n",
+		printf("AX:  0x%08X\tCX:  0x%08X\tDX:  0x%08X\tBX:  0x%08X\n",
 			   reg_w(R_AX),reg_w(R_CX),reg_w(R_DX),reg_w(R_BX));
-		printf("SP:  %8X\tDP:  %8X\tSI:  %8X\tDI:  %8X\n",
+		printf("SP:  0x%08X\tDP:  0x%08X\tSI:  0x%08X\tDI:  0x%08X\n",
 		       reg_w(R_SP),reg_w(R_BP),reg_w(R_SI),reg_w(R_DI));
-		printf("AH:  %8X\tCH:  %8X\tDH:  %8X\tBH:  %8X\n",
+		printf("AH:  0x%08X\tCH:  0x%08X\tDH:  0x%08X\tBH:  0x%08X\n",
 			   reg_b(R_AH),reg_b(R_CH),reg_b(R_DH),reg_b(R_BH));
-		printf("AL:  %8X\tCL:  %8X\tDL:  %8X\tBL:  %8X\n",
+		printf("AL:  0x%08X\tCL:  0x%08X\tDL:  0x%08X\tBL:  0x%08X\n",
 			   reg_b(R_AL),reg_b(R_CL),reg_b(R_DL),reg_b(R_BL));
 
 	}
