@@ -44,7 +44,7 @@ static int cmd_si(char *args) {
 static int cmd_x(char *args) {
 	//ssx : To do here
 	swaddr_t read_addr = 1;
-	printf("0x%08X\n", swaddr_read(read_addr,4));
+	printf("0x%08X\n", swaddr_read(read_addr,1));
 	return 0;
 }
 
