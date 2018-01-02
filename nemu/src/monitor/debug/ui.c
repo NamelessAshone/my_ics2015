@@ -35,10 +35,19 @@ static int cmd_c(char *args) {
 static int cmd_q(char *args) {
 	return -1;
 }
+
 static int cmd_si(char *args) {
 	cpu_exec(1);
 	return 0;
 }
+
+static int cmd_x(char *args) {
+	//ssx : To do here
+	swaddr_t read_addr = 1;
+	printf("0x%08X\n", swaddr_read(read_addr,4));
+	return 0;
+}
+
 static int cmd_info(char *args) {
 	if(args == NULL) {
 	
@@ -71,8 +80,8 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si", "Sigle-step run", cmd_si },
-	{ "info","Print cpu's information", cmd_info }
-
+	{ "info","Print cpu's information", cmd_info },
+	{ "x","Scan memory and print them", cmd_x }
 	/* TODO: Add more commands */
 
 };
