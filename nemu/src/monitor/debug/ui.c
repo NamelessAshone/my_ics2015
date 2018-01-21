@@ -65,6 +65,7 @@ static int cmd_x(char *args) {
 		i++;
 		read_addr++;
 	}
+	printf("\n");
 	return 0;
 }
 
