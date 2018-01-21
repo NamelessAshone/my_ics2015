@@ -59,9 +59,9 @@ static int cmd_x(char *args) {
 		if(i % 8 == 0 ) {
 			if(i != 0)
 				printf("\n");
-			printf("0x%08x:", read_addr);
+			printf("0x%08x: ", read_addr);
 		}
-		printf("%02X %c  ", value, value);
+		printf("%02X %c - ", value, value);
 		i++;
 		read_addr++;
 	}
