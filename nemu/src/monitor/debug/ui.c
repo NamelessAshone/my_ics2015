@@ -57,11 +57,11 @@ static int cmd_x(char *args) {
 	while(i < len) {
 		int value = swaddr_read(read_addr,1);
 		if(i % 8 == 0 ) {
-			printf("0x%08x:", read_addr);
 			if(i != 0)
 				printf("\n");
+			printf("0x%08x:", read_addr);
 		}
-		printf("%02X %c\n", value, value);
+		printf("%02X %c  ", value, value);
 		i++;
 		read_addr++;
 	}
