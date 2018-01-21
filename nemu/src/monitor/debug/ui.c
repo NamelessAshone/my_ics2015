@@ -55,7 +55,13 @@ static int cmd_x(char *args) {
 	//TO DO: exception solve
 	
 	while(i < len) {
-		printf("0x%08x: 0x%08X\n", read_addr, swaddr_read(read_addr,1));
+		int value = swaddr_read(read_addr,1);
+		if(i % 8 == 0 ) {
+			printf("0x%08x:", read_addr);
+			if(i != 0)
+				printf("\n");
+		}
+		printf("%02X %c\n", value, value);
 		i++;
 		read_addr++;
 	}
