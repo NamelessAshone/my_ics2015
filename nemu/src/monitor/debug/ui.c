@@ -42,9 +42,22 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_x(char *args) {
-	//ssx : To do here
-	swaddr_t read_addr = 1;
-	printf("0x%08X\n", swaddr_read(read_addr,1));
+	//ssx : scan the memory for print
+	char *addr_str = NULL;
+	char *len_str = NULL;
+	int len = 1;
+	int i = 0;
+	swaddr_t read_addr = 0;
+	len_str = strtok(args, " ");
+	addr_str = strtok(NULL, " ");
+	sscanf(len_str, "%d", &len);
+	sscanf(addr_str, "%x", &read_addr);
+	//TO DO: exception solve
+	
+	while(i < len) {
+		printf("0x%08X\n", swaddr_read(read_addr,1));
+		i++;
+	}
 	return 0;
 }
 
