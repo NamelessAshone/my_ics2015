@@ -61,9 +61,9 @@ static int cmd_x(char *args) {
 				printf("\n");
 			printf("0x%08x: ", read_addr);
 		}
-		printf("%02X", value);
+		printf("%02X ", value);
 		if(isgraph(value))
-			printf(" %c", value);
+			printf("%c", value);
 		else
 			printf(" ");
 		printf(" - ");
