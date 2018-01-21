@@ -87,6 +87,39 @@ static bool make_token(char *e) {
 				 */
 
 				switch(rules[i].token_type) {
+					case NOTYPE:break;
+					case EQ	:tokens[nr_token].type = EQ;
+							 strcpy(tokens[nr_token].str, "=");
+							 nr_token++;
+							 break;
+					case '+':tokens[nr_token].type = '+';
+							 strcpy(tokens[nr_token].str, "+");
+							 nr_token++;
+							 break;
+					case '-':tokens[nr_token].type = '-';
+							 strcpy(tokens[nr_token].str, "-");
+							 nr_token++;
+							 break;
+					case '*':tokens[nr_token].type = '*';
+							 strcpy(tokens[nr_token].str, "*");
+							 nr_token++;
+							 break;
+					case '/':tokens[nr_token].type = '/';
+							 strcpy(tokens[nr_token].str, "/");
+							 nr_token++;
+							 break;
+					case NUM:tokens[nr_token].type = NUM;
+							 strcpy(tokens[nr_token].str, substr_start);
+							 nr_token++;
+							 break;
+					case '(':tokens[nr_token].type = '(';
+							 strcpy(tokens[nr_token].str, "(");
+							 nr_token++;
+							 break;
+					case ')':tokens[nr_token].type = ')';
+							 strcpy(tokens[nr_token].str, ")");
+							 nr_token++;
+							 break; 
 					default: panic("please implement me");
 				}
 
@@ -110,6 +143,7 @@ uint32_t expr(char *e, bool *success) {
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
+
 	panic("please implement me");
 	return 0;
 }
