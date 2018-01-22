@@ -97,8 +97,16 @@ static int cmd_info(char *args) {
 
 static int cmd_p(char *args) {
 	bool success = false;
+	if(!args) {
+		goto EXCEPTION_NULL_ARGS;
+	}
+
 	expr(args, &success);
-	printf("%d", success);
+	
+	return 1;
+	
+EXCEPTION_NULL_ARGS:
+	printf("No expr to evaluate,please add expr as argument after command 'p'\n");
 	return 0;
 }
 
