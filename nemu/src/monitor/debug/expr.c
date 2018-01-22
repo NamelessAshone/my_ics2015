@@ -26,9 +26,9 @@ static struct rule {
 	{ "\\+", '+'},							// plus
 	{ "==", EQ},							// equal
 	{ "\\*", '*'},							// multiplay
+	{ "-?([1-9][0-9]*|0+)", NUM},			// num
 	{ "-", '-'},							// subtract
 	{ "/", '/'},							// divide
-	{ "-?([1-9][0-9]*|0+)", NUM},			// num
 	{ "\\(", '('},							// left bracket
 	{ "\\)", ')'},							// right bracket
 	{ "\n+", RT}							// return
