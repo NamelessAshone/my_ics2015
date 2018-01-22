@@ -31,7 +31,7 @@ static struct rule {
 	{ "/", '/'},							// divide
 	{ "\\(", '('},							// left bracket
 	{ "\\)", ')'},							// right bracket
-	{ "\\s+", RT}							// return
+	{ "\\+", RT}							// return
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -86,7 +86,7 @@ static bool make_token(char *e) {
 				 * to record the token in the array ``tokens''. For certain 
 				 * types of tokens, some extra actions should be performed.
 				 */
-				// SSX : Pay attention to the priority of rules.
+				
 				switch(rules[i].token_type) {
 					case NOTYPE:break;
 					case NUM:tokens[nr_token].type = NUM;
@@ -122,7 +122,8 @@ static bool make_token(char *e) {
 							 nr_token++;
 							 break;
 					case RT :break; 
-					default: panic("please implement me");
+					default://panic("please implement me");
+							 break;
 				}
 
 				break;
@@ -146,7 +147,7 @@ uint32_t expr(char *e, bool *success) {
 
 	/* TODO: Insert codes to evaluate the expression. */
 
-	panic("please implement me");
+	//panic("please implement me");
 	return 0;
 }
 
