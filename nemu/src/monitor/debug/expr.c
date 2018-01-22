@@ -86,9 +86,13 @@ static bool make_token(char *e) {
 				 * to record the token in the array ``tokens''. For certain 
 				 * types of tokens, some extra actions should be performed.
 				 */
-
+				// SSX : Pay attention to the priority of rules.
 				switch(rules[i].token_type) {
 					case NOTYPE:break;
+					case NUM:tokens[nr_token].type = NUM;
+							 strcpy(tokens[nr_token].str, substr_start);
+							 nr_token++;
+							 break;
 					case EQ	:tokens[nr_token].type = EQ;
 							 strcpy(tokens[nr_token].str, "=");
 							 nr_token++;
@@ -107,10 +111,6 @@ static bool make_token(char *e) {
 							 break;
 					case '/':tokens[nr_token].type = '/';
 							 strcpy(tokens[nr_token].str, "/");
-							 nr_token++;
-							 break;
-					case NUM:tokens[nr_token].type = NUM;
-							 strcpy(tokens[nr_token].str, substr_start);
 							 nr_token++;
 							 break;
 					case '(':tokens[nr_token].type = '(';
