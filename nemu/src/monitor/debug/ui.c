@@ -106,7 +106,7 @@ static int cmd_p(char *args) {
 	return 1;
 	
 EXCEPTION_NULL_ARGS:
-	printf("No expr to evaluate,please add expr as argument after command 'p'\n");
+	printf("No expr to evaluate,please add expression as the argument after command 'p'\n");
 	return 0;
 }
 

@@ -144,7 +144,12 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
-
+	int i = 0;
+	for(; i < nr_token; i++) {
+		printf("'%s' ",tokens[i].str);
+		if(i % 10 == 9)
+			printf("\n");
+	}
 	/* TODO: Insert codes to evaluate the expression. */
 
 	//panic("please implement me");
