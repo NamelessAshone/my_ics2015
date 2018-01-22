@@ -94,7 +94,7 @@ static bool make_token(char *e) {
 							 nr_token++;
 							 break;
 					case EQ	:tokens[nr_token].type = EQ;
-							 strcpy(tokens[nr_token].str, "=");
+							 strcpy(tokens[nr_token].str, "==");
 							 nr_token++;
 							 break;
 					case '+':tokens[nr_token].type = '+';
