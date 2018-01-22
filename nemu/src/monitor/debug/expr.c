@@ -90,7 +90,7 @@ static bool make_token(char *e) {
 				switch(rules[i].token_type) {
 					case NOTYPE:break;
 					case NUM:tokens[nr_token].type = NUM;
-							 strcpy(tokens[nr_token].str, substr_start);
+							 memcpy(tokens[nr_token].str, substr_start, substr_len);
 							 nr_token++;
 							 break;
 					case EQ	:tokens[nr_token].type = EQ;
