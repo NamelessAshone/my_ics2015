@@ -191,8 +191,8 @@ uint32_t expr(char *e, bool *success) {
 	}
 	/* TEST: */
 	printf("[[%d]]\n",nr_token);
-	if(check_parentheses(0,nr_token))
-		printf("\ESC[30;43mmatched\n");
+	if(check_parentheses(0, nr_token - 1))
+		printf("\ESC[30;43m[matched\n]");
 	else
 		printf("no matched\n"); 
 
