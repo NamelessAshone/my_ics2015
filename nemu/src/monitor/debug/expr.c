@@ -194,7 +194,7 @@ uint32_t expr(char *e, bool *success) {
 	if(check_parentheses(0, nr_token - 1))
 		printf("\33[30;43mmatched\n");
 	else
-		printf("\33[30;43mno matched\n"); 
+		printf("\33[30;43mno matched\n\33[0m"); 
 
 	/* TODO: Insert codes to evaluate the expression. */
 	
