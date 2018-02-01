@@ -26,7 +26,9 @@ static struct rule {
 	{ "\\+", '+'},							// plus
 	{ "==", EQ},							// equal
 	{ "\\*", '*'},							// multiplay
-	{ "-?([1-9][0-9]*|0+)", NUM},			// num
+	/* { "-?([1-9][0-9]*|0+)", NUM},		// num
+	 */
+	{ "[1-9][0-9]*|0+", NUM},				// num
 	{ "-", '-'},							// subtract
 	{ "/", '/'},							// divide
 	{ "\\(", '('},							// left bracket
@@ -122,8 +124,7 @@ static bool make_token(char *e) {
 							 nr_token++;
 							 break;
 					case RT :break; 
-					default://panic("please implement me");
-							 break;
+					default :panic("please implement me");
 				}
 
 				break;
@@ -135,10 +136,48 @@ static bool make_token(char *e) {
 			return false;
 		}
 	}
-
 	return true; 
 }
 
+static bool check_parentheses(int p, int q) {
+	char buf[32];
+	int buf_top = 0;
+	memset(buf, 0, sizeof(char));
+	int i;
+	for(i = p; i < q; i++) {
+		if(strcmp(tokens[i].str, "(")) {
+			buf[buf_top++] = '(';
+		} else if(strcmp(tokens[i].str, ")")) {
+			if(buf_top > 0 )
+			   buf[--buf_top] = 0;
+			else
+				return false;	
+		}
+	}
+	return true;
+}
+
+#ifdef TEST
+static uint32_t eval(int p, int q) {
+	if(p > q) {
+	
+	} else if(p == q) {
+		/* Single token.
+		 * For now this token should be number.
+		 * Return the value of the number.
+		 * */
+
+	} else if(check_parentheses(p, q) == true) {
+		/* The expression is surrounded by a matched pair of parentheses.
+		 * If that is the case, just throw away the parentheses. 
+		 */
+		return eval(p + 1, q - 1);
+	} else {
+		/* We should do more things here.*/
+
+	}
+}
+#endif
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
@@ -150,8 +189,15 @@ uint32_t expr(char *e, bool *success) {
 		if(i % 10 == 9)
 			printf("\n");
 	}
-	/* TODO: Insert codes to evaluate the expression. */
+	/* TEST: */
+	if(check_parentheses(0,nr_token))
+		printf("\27[30;43mmatched\n");
+	else
+		printf("no matched\n"); 
 
+	/* TODO: Insert codes to evaluate the expression. */
+	
+		
 	//panic("please implement me");
 	return 0;
 }
