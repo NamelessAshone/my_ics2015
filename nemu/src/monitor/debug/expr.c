@@ -268,7 +268,8 @@ uint32_t expr(char *e, bool *success) {
 
 #define TEST_DOMINANT_OPERATOR
 #ifdef 	TEST_DOMINANT_OPERATOR
-	printf("\33[30;102%c\33[0m\n",tokens[find_dominant_operator(0, nr_token)].type);
+	printf("\33[30;102mdominant op : \33[0m");
+	printf("\33[30;102m%c\33[0m\n",tokens[find_dominant_operator(0, nr_token)].type);
 #endif
 	/* TODO: Insert codes to evaluate the expression. */
 	//printf("%d\n", eval(0,nr_token));
