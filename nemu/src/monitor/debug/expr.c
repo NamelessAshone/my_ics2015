@@ -206,7 +206,6 @@ static int find_dominant_operator(int p, int q) {
 	return op;
 }
 
-#ifdef TEST
 static uint32_t eval(int p, int q) {
 	if(p > q) {
 		/* Bad expression. */
@@ -231,7 +230,7 @@ static uint32_t eval(int p, int q) {
 		return eval(p + 1, q - 1);
 	} else {
 		/* We should do more things here. */
-		int op = 0;
+		int op = find_dominant_operator(p, q);
 		int	val1 = eval(p, op - 1);
 		int val2 = eval(op + 1, q);
 
@@ -244,7 +243,6 @@ static uint32_t eval(int p, int q) {
 		} 
 	}
 }
-#endif
 
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
@@ -266,13 +264,12 @@ uint32_t expr(char *e, bool *success) {
 		printf("\33[30;43mno matched\33[0m\n"); 
 #endif
 
-#define TEST_DOMINANT_OPERATOR
 #ifdef 	TEST_DOMINANT_OPERATOR
 	printf("\33[30;102mdominant op : \33[0m");
 	printf("\33[30;102m%c\33[0m\n",tokens[find_dominant_operator(0, nr_token)].type);
 #endif
 	/* TODO: Insert codes to evaluate the expression. */
-	//printf("%d\n", eval(0,nr_token));
+	printf("%d\n", eval(0,nr_token));
 
 	//panic("please implement me");
 	return 0;
