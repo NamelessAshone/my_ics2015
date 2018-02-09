@@ -142,12 +142,12 @@ static bool make_token(char *e) {
 static bool check_parentheses(int p, int q) {
 	char buf[32];
 	int buf_top = 0;
-	memset(buf, 0, sizeof(char));
+	memset(buf, 0, 32 * sizeof(char));
 	int i;
 	for(i = p; i < q; i++) {
-		if(strcmp(tokens[i].str, "(")) {
+		if(strcmp(tokens[i].str, "(") == 0) {
 			buf[buf_top++] = '(';
-		} else if(strcmp(tokens[i].str, ")")) {
+		} else if(strcmp(tokens[i].str, ")") == 0) {
 			if(buf_top > 0 )
 			   buf[--buf_top] = 0;
 			else
@@ -191,7 +191,7 @@ uint32_t expr(char *e, bool *success) {
 	}
 	/* TEST: */
 	printf("[[%d]]\n",nr_token);
-	if(check_parentheses(0, nr_token - 1))
+	if(check_parentheses(0, nr_token))
 		printf("\33[30;43mmatched\n");
 	else
 		printf("\33[30;43mno matched\n\33[0m"); 
