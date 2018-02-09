@@ -256,6 +256,7 @@ uint32_t expr(char *e, bool *success) {
 		if(i % 10 == 9)
 			printf("\n");
 	}
+	printf("\n");
 
 #ifdef TEST_CHECK_PARETHESE
 	printf("[[%d]]\n",nr_token);
