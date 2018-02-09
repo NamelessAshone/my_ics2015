@@ -265,7 +265,6 @@ uint32_t expr(char *e, bool *success) {
 		printf("\33[30;43mno matched\33[0m\n"); 
 #endif
 
-#define TEST_DOMINANT_OPERATOR
 #ifdef 	TEST_DOMINANT_OPERATOR
 	printf("\33[30;102mdominant op : \33[0m");
 	printf("\33[30;102m%c\33[0m\n",tokens[find_dominant_operator(0, nr_token)].type);
