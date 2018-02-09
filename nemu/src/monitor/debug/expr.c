@@ -231,6 +231,7 @@ static uint32_t eval(int p, int q) {
 	} else {
 		/* We should do more things here. */
 		int op = find_dominant_operator(p, q);
+		printf("\33[30;102mdominant op : %c\33[0m\n", tokens[op].type);	
 		int	val1 = eval(p, op - 1);
 		int val2 = eval(op + 1, q);
 
