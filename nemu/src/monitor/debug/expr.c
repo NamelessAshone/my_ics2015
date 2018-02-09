@@ -193,7 +193,8 @@ static int find_dominant_operator(int p, int q) {
 					  else {
 						if(get_op_level(tokens[i].type) < get_op_level(tokens[op].type))
 							op = i;
-					  } 
+					  }
+					  break; 
 			case '(': u = i + 1;
 					  while(!check_parentheses(i, u)) 
 						  u++;
