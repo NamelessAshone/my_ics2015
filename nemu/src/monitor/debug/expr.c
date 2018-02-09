@@ -270,7 +270,7 @@ uint32_t expr(char *e, bool *success) {
 	printf("\33[30;102m%c\33[0m\n",tokens[find_dominant_operator(0, nr_token)].type);
 #endif
 	/* TODO: Insert codes to evaluate the expression. */
-	printf("\33[30;102m\n%d\n\33[0m", eval(0,nr_token-1));
+	printf("\33[30;102m%d\n\33[0m", eval(0,nr_token-1));
 
 	//panic("please implement me");
 	return 0;
