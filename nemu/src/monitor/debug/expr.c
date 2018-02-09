@@ -192,9 +192,9 @@ uint32_t expr(char *e, bool *success) {
 	/* TEST: */
 	printf("[[%d]]\n",nr_token);
 	if(check_parentheses(0, nr_token))
-		printf("\33[30;43mmatched\n");
+		printf("\33[30;43mmatched\33[0m\n");
 	else
-		printf("\33[30;43mno matched\n\33[0m"); 
+		printf("\33[30;43mno matched\33[0m\n"); 
 
 	/* TODO: Insert codes to evaluate the expression. */
 	
