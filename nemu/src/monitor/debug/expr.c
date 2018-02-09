@@ -163,21 +163,39 @@ static bool check_parentheses(int p, int q) {
 #ifdef TEST
 static uint32_t eval(int p, int q) {
 	if(p > q) {
-	
+		/* Bad expression. */
+		printf("\33[30;41mBad expression.\33[0m\n");
+		return 0;
 	} else if(p == q) {
 		/* Single token.
 		 * For now this token should be number.
 		 * Return the value of the number.
 		 * */
-
+		int val = 0;
+		switch(tokens[p].type) {
+			case NUM: ssanf(tokens[p].str, "%d", &val);
+					  break;
+			default : printf("This token can't be evaluated\n");			  
+		}
+		return val;
 	} else if(check_parentheses(p, q) == true) {
 		/* The expression is surrounded by a matched pair of parentheses.
 		 * If that is the case, just throw away the parentheses. 
-		 */
+		 * */
 		return eval(p + 1, q - 1);
 	} else {
-		/* We should do more things here.*/
+		/* We should do more things here. */
+		int op;
+		val1 = eval(p, op - 1);
+		val2 = eval(op + 1, q);
 
+		switch(op_type) {
+			case '+': return  val1 + val2;
+			case '-': return  val1 - val2;
+			case '*': return  val1 * val2;
+			case '/': return  val1 / val2;
+			default : panic("Wrong operator type.\n"); 
+		} 
 	}
 }
 #endif
