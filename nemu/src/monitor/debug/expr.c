@@ -204,6 +204,7 @@ static int find_dominant_operator(int p, int q) {
 	}
 	return op;
 }
+
 #ifdef TEST
 static uint32_t eval(int p, int q) {
 	if(p > q) {
@@ -266,7 +267,8 @@ uint32_t expr(char *e, bool *success) {
 
 #define TEST_DOMINANT_OPERATOR
 #ifdef 	TEST_DOMINANT_OPERATOR
-	printf("%c",find_dominant_operator(0,nr_token));
+	find_dominant_operator(0, nr_token);
+	//printf("\33[30;102%c\33[0m\n",find_dominant_operator(0, nr_token));
 #endif
 	/* TODO: Insert codes to evaluate the expression. */
 	//printf("%d\n", eval(0,nr_token));
