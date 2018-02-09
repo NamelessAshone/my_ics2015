@@ -33,7 +33,7 @@ static struct rule {
 	{ "/", '/'},							// divide
 	{ "\\(", '('},							// left bracket
 	{ "\\)", ')'},							// right bracket
-	{ "\\+", RT}							// return
+	{ "\\n+", RT}							// return
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -123,7 +123,7 @@ static bool make_token(char *e) {
 							 strcpy(tokens[nr_token].str, ")");
 							 nr_token++;
 							 break;
-					case RT :break; 
+					//case RT :break; 
 					default :panic("please implement me");
 				}
 
@@ -160,6 +160,50 @@ static bool check_parentheses(int p, int q) {
 	return true;
 }
 
+struct {
+		char type;
+		int level;	
+} op_level[] = {
+		{'+', 1},
+		{'-', 1},
+		{'*', 2},
+		{'/', 2}
+};
+
+#define NR_OP (sizeof(op_level) / sizeof(op_level[0]))
+static int get_op_level(char ch) {
+	int i;
+	for(i = 0; i < NR_OP; i++)
+		if(op_level[i].type == ch)
+			return op_level[i].level;
+	return -1;
+}
+
+static int find_dominant_operator(int p, int q) {
+	int op = -1;
+	int i,u;
+
+	for(i = p; i < q; i++) {
+		switch(tokens[i].type) {
+			case '+': 
+			case '-':
+		   	case '*': 
+			case '/': if(op == -1)
+						 op = i;
+					  else {
+						if(get_op_level(tokens[i].type) < get_op_level(tokens[op].type))
+							op = i;
+					  } 
+			case '(': u = i + 1;
+					  while(!check_parentheses(i, u)) 
+						  u++;
+					  i = u;
+					  break;
+			default: continue;		 
+		}
+	}
+	return op;
+}
 #ifdef TEST
 static uint32_t eval(int p, int q) {
 	if(p > q) {
@@ -173,7 +217,7 @@ static uint32_t eval(int p, int q) {
 		 * */
 		int val = 0;
 		switch(tokens[p].type) {
-			case NUM: ssanf(tokens[p].str, "%d", &val);
+			case NUM: sscanf(tokens[p].str, "%d", &val);
 					  break;
 			default : printf("This token can't be evaluated\n");			  
 		}
@@ -185,11 +229,11 @@ static uint32_t eval(int p, int q) {
 		return eval(p + 1, q - 1);
 	} else {
 		/* We should do more things here. */
-		int op;
-		val1 = eval(p, op - 1);
-		val2 = eval(op + 1, q);
+		int op = 0;
+		int	val1 = eval(p, op - 1);
+		int val2 = eval(op + 1, q);
 
-		switch(op_type) {
+		switch(tokens[op].type) {
 			case '+': return  val1 + val2;
 			case '-': return  val1 - val2;
 			case '*': return  val1 * val2;
@@ -199,6 +243,7 @@ static uint32_t eval(int p, int q) {
 	}
 }
 #endif
+
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
@@ -210,16 +255,22 @@ uint32_t expr(char *e, bool *success) {
 		if(i % 10 == 9)
 			printf("\n");
 	}
-	/* TEST: */
+
+#ifdef TEST_CHECK_PARETHESE
 	printf("[[%d]]\n",nr_token);
 	if(check_parentheses(0, nr_token))
 		printf("\33[30;43mmatched\33[0m\n");
 	else
 		printf("\33[30;43mno matched\33[0m\n"); 
+#endif
 
+#define TEST_DOMINANT_OPERATOR
+#ifdef 	TEST_DOMINANT_OPERATOR
+	printf("%c",find_dominant_operator(0,nr_token));
+#endif
 	/* TODO: Insert codes to evaluate the expression. */
-	
-		
+	//printf("%d\n", eval(0,nr_token));
+
 	//panic("please implement me");
 	return 0;
 }
