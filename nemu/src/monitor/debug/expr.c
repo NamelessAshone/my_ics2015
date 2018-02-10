@@ -204,7 +204,7 @@ static int find_dominant_operator(int p, int q) {
 		}
 	}
 
-	printf("%d<%c>", i, tokens[i].type);
+	printf("%d<%c>", op, tokens[op].type);
 	return op;
 }
 
