@@ -210,7 +210,7 @@ static int find_dominant_operator(int p, int q) {
 static uint32_t eval(int p, int q) {
 	if(p > q) {
 		/* Bad expression. */
-		printf("\33[30;41mBad expression.\33[0m\n");
+		printf("\33[30;41mp = %d , q = %d\33[0m\n", p, q);
 		panic("Bad expression fault.\n");
 		return 0;
 	} else if(p == q) {
