@@ -190,10 +190,9 @@ static int find_dominant_operator(int p, int q) {
 		   	case '*': 
 			case '/': if(op == -1)
 						 op = i;
-					  else {
+					  else
 						if(get_op_level(tokens[i].type) < get_op_level(tokens[op].type))
 							op = i;
-					  }
 					  break; 
 			case '(': u = i + 1;
 					  while(!check_parentheses(i, u) && u < q) 
@@ -202,6 +201,7 @@ static int find_dominant_operator(int p, int q) {
 					  break;
 			default : continue;		 
 		}
+		printf("%c", tokens[i].type);
 	}
 	return op;
 }
