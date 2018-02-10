@@ -210,10 +210,12 @@ static int find_dominant_operator(int p, int q) {
 static uint32_t eval(int p, int q) {
 	printf("\33[30;41mp = %d , q = %d\33[0m\n", p, q);
 	if(p > q) {
+		printf("fork 1\n");
 		/* Bad expression. */
 		panic("Bad expression fault.\n");
 		return 0;
 	} else if(p == q) {
+		printf("fork 2\n");
 		/* Single token.
 		 * For now this token should be number.
 		 * Return the value of the number.
@@ -226,11 +228,13 @@ static uint32_t eval(int p, int q) {
 		}
 		return val;
 	} else if(check_parentheses(p, q) == true) {
+		printf("fork 3\n");
 		/* The expression is surrounded by a matched pair of parentheses.
 		 * If that is the case, just throw away the parentheses. 
 		 * */
 		return eval(p + 1, q - 1);
 	} else {
+		printf("fork 4\n");
 		/* We should do more things here. */
 		int op = find_dominant_operator(p, q);
 		int	val1 = eval(p, op - 1);
