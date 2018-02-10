@@ -176,6 +176,7 @@ static int get_op_level(char ch) {
 	for(i = 0; i < NR_OP; i++)
 		if(op_level[i].type == ch)
 			return op_level[i].level;
+	printf("Can't find this op's <%c> level.\n", ch);
 	return -1;
 }
 
