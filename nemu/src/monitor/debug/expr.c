@@ -147,7 +147,7 @@ static bool check_parentheses(int p, int q) {
 	memset(buf, 0, 32 * sizeof(char));
 	if(strcmp(tokens[p].str, "(") != 0 || strcmp(tokens[q].str, ")") != 0)
 		return false;
-	for(i = p; i <= q; i++) {
+	for(i = p + 1; i <= q - 1; i++) {
 		if(strcmp(tokens[i].str, "(") == 0) {
 			buf[buf_top++] = '(';
 		} else if(strcmp(tokens[i].str, ")") == 0) {
