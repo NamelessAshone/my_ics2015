@@ -210,6 +210,7 @@ static uint32_t eval(int p, int q) {
 	if(p > q) {
 		/* Bad expression. */
 		printf("\33[30;41mBad expression.\33[0m\n");
+		panic("Bad expression fault.\n");
 		return 0;
 	} else if(p == q) {
 		/* Single token.
