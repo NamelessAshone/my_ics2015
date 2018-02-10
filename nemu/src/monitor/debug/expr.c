@@ -183,7 +183,7 @@ static int find_dominant_operator(int p, int q) {
 	int op = -1;
 	int i,u;
 
-	for(i = p; i < q; i++) {
+	for(i = p; i <= q; i++) {
 		switch(tokens[i].type) {
 			case '+': 
 			case '-':
@@ -196,11 +196,11 @@ static int find_dominant_operator(int p, int q) {
 					  }
 					  break; 
 			case '(': u = i + 1;
-					  while(!check_parentheses(i, u)) 
+					  while(!check_parentheses(i, u) && u < q) 
 						  u++;
 					  i = u;
 					  break;
-			default: continue;		 
+			default : continue;		 
 		}
 	}
 	return op;
@@ -235,7 +235,6 @@ static uint32_t eval(int p, int q) {
 		int	val1 = eval(p, op - 1);
 		int val2 = eval(op + 1, q);
 		printf("\33[30;102mval1: %d val2 :%d dominant op : %c\33[0m\n", val1, val2, tokens[op].type);	
-		
 		switch(tokens[op].type) {
 			case '+': return  val1 + val2;
 			case '-': return  val1 - val2;
@@ -270,7 +269,7 @@ uint32_t expr(char *e, bool *success) {
 
 #ifdef 	TEST_DOMINANT_OPERATOR
 	printf("\33[30;102mdominant op : \33[0m");
-	printf("\33[30;102m%c\33[0m\n",tokens[find_dominant_operator(0, nr_token)].type);
+	printf("\33[30;102m%c\33[0m\n",tokens[find_dominant_operator(0, nr_token - 1)].type);
 #endif
 	/* TODO: Insert codes to evaluate the expression. */
 	printf("\33[30;102m%d\n\33[0m", eval(0,nr_token-1));
