@@ -185,7 +185,6 @@ static int find_dominant_operator(int p, int q) {
 	int i,u;
 
 	for(i = p; i <= q; i++) {
-		printf("<%c>", tokens[i].type);
 		switch(tokens[i].type) {
 			case '+': 
 			case '-':
@@ -204,6 +203,8 @@ static int find_dominant_operator(int p, int q) {
 			default : continue;		 
 		}
 	}
+
+	printf("%d<%c>", i, tokens[i].type);
 	return op;
 }
 
