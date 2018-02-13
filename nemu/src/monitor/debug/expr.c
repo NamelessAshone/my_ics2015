@@ -263,12 +263,12 @@ uint32_t expr(char *e, bool *success) {
 #ifdef TEST_PRINT_TOKENS
 	int i = 0;
 	for(; i < nr_token; i++) {
-		printf("'%s' ",tokens[i].str);
+		printf("'%s'\t",tokens[i].str);
 		if(i % 10 == 9) {
 			printf("\n");
 			int j = i - 9;
-			while(j % 10 != 9)
-				printf(" %d  ", j++);
+			while(j % 10 != 0 && j != 0) 
+				printf("%d\t", j++);
 			printf("\n");
 		}
 	}
