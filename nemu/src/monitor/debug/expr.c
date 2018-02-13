@@ -259,13 +259,21 @@ uint32_t expr(char *e, bool *success) {
 		return 0;
 	}
 
+#define TEST_PRINT_TOKENS
+#ifdef TEST_PRINT_TOKENS
 	int i = 0;
 	for(; i < nr_token; i++) {
 		printf("'%s' ",tokens[i].str);
-		if(i % 10 == 9)
+		if(i % 10 == 9) {
 			printf("\n");
+			int j = i - 9;
+			while(j % 10 != 9)
+				printf("%d ", j++);
+			printf("\n");
+		}
 	}
 	printf("\n");
+#endif
 
 #ifdef TEST_CHECK_PARETHESE
 	printf("[[%d]]\n",nr_token);
