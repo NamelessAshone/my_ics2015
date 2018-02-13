@@ -184,7 +184,7 @@ static int find_dominant_operator(int p, int q) {
 	int op = -1;
 	int i,u;
 
-	for(i = p; i <= q; i++) {
+	for(i = q; i >= p; i--) {
 		switch(tokens[i].type) {
 			case '+': 
 			case '-':
@@ -195,9 +195,9 @@ static int find_dominant_operator(int p, int q) {
 						if(get_op_level(tokens[i].type) < get_op_level(tokens[op].type))
 							op = i;
 					  break; 
-			case '(': u = i + 1;
-					  while(!check_parentheses(i, u) && u < q) 
-						  u++;
+			case '(': u = i - 1;
+					  while(!check_parentheses(i, u) && u >= q) 
+						  u--;
 					  i = u;
 					  break;
 			default : continue;		 
