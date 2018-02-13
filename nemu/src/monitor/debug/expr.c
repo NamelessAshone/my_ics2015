@@ -196,7 +196,7 @@ static int find_dominant_operator(int p, int q) {
 							op = i;
 					  break; 
 			case '(': u = i + 1;
-					  while(!check_parentheses(i, u) && u <= p) 
+					  while(!check_parentheses(i, u) && u <= q) 
 						  u++;
 					  i = u;
 					  break;
