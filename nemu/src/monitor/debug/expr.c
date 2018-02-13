@@ -268,7 +268,7 @@ uint32_t expr(char *e, bool *success) {
 			printf("\n");
 			int j = i - 9;
 			while(j % 10 != 9)
-				printf("%d ", j++);
+				printf(" %d  ", j++);
 			printf("\n");
 		}
 	}
