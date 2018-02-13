@@ -198,7 +198,7 @@ static int find_dominant_operator(int p, int q) {
 			case '(': u = i + 1;
 					  while(!check_parentheses(i, u) && u <= q) 
 						  u++;
-					  printf("u: %d, <%d, %d> ", u, p, q);
+					  printf("In func 'find_dominant_operator'-->> u: %d, <%d, %d>\n", u, p, q);
 					  if(u == q + 1)
 						  printf("\33[30;46mParentheses match failed\n\33[0m");
 					  i = u;
@@ -212,7 +212,7 @@ static int find_dominant_operator(int p, int q) {
 }
 
 static uint32_t eval(int p, int q) {
-	printf("\33[30;41mp = %d , q = %d\33[0m\n", p, q);
+	printf("\33[30;41mIn func eval -->> p = %d , q = %d\33[0m\n", p, q);
 	if(p > q) {
 		printf("fork 1\n");
 		/* Bad expression. */
