@@ -182,7 +182,7 @@ static int get_op_level(char ch) {
 
 static int find_dominant_operator(int p, int q) {
 	int op = -1;
-	int i = 0,u = 0;
+	int i, u;
 
 	for(i = p; i <= q; i++) {
 		switch(tokens[i].type) {
@@ -198,7 +198,7 @@ static int find_dominant_operator(int p, int q) {
 			case '(': u = i + 1;
 					  while(!check_parentheses(i, u) && u <= q) 
 						  u++;
-					  printf("%d ", u);
+					  printf("u: %d, <%d, %d> ", u, p, q);
 					  if(u == q + 1)
 						  printf("\33[30;46mParentheses match failed\n\33[0m");
 					  i = u;
