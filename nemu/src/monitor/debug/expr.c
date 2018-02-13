@@ -261,12 +261,11 @@ uint32_t expr(char *e, bool *success) {
 
 #define TEST_PRINT_TOKENS
 #ifdef TEST_PRINT_TOKENS
-	int i = 0;
+	int i = 0, j = 0;
 	for(; i < nr_token; i++) {
 		printf("'%s'\t",tokens[i].str);
-		if(i % 10 == 9) {
+		if(i % 10 == 9 || i == nr_token - 1) {
 			printf("\n");
-			int j = i - 9;
 			while(j != i + 1) 
 				printf("%d\t", j++);
 			printf("\n");
