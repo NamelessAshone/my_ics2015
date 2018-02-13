@@ -198,6 +198,7 @@ static int find_dominant_operator(int p, int q) {
 			case '(': u = i + 1;
 					  while(!check_parentheses(i, u) && u <= q) 
 						  u++;
+					  printf("%d ", u);
 					  if(u == q + 1)
 						  printf("\33[30;46mParentheses match failed\n\33[0m");
 					  i = u;
