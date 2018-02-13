@@ -182,7 +182,7 @@ static int get_op_level(char ch) {
 
 static int find_dominant_operator(int p, int q) {
 	int op = -1;
-	int i,u;
+	int i = 0,u = 0;
 
 	for(i = p; i <= q; i++) {
 		switch(tokens[i].type) {
