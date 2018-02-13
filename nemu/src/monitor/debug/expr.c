@@ -157,6 +157,8 @@ static bool check_parentheses(int p, int q) {
 				return false;	
 		}
 	}
+	if(buf_top > 0)
+		return false;
 	return true;
 }
 
