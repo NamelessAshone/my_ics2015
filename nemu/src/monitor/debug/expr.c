@@ -33,7 +33,7 @@ static struct rule {
 	{ "&&", AND},							// and
 	{ "\\|\\|", OR},							// or
 	{ "\\*", '*'},							// multiplay
-	{ "^0x[0-9][a-zA-Z]", HEX},				// hex
+	{ "^0x[0-9a-zA-Z]+", HEX},				// hex
 	{ "[0-9]+", NUM},						// num
 	{ "-", '-'},							// subtract
 	{ "/", '/'},							// divide
