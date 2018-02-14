@@ -31,7 +31,7 @@ static struct rule {
 	{ ">", GTR},							// greater
 	{ "!=", NEQ},							// not equal
 	{ "&&", AND},							// and
-	{ "||", OR},							// or
+	{ "\\|\\|", OR},							// or
 	{ "\\*", '*'},							// multiplay
 	{ "[0-9]+", NUM},						// num
 	{ "-", '-'},							// subtract
