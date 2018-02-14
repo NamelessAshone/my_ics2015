@@ -271,7 +271,7 @@ uint32_t expr(char *e, bool *success) {
 		return 0;
 	}
 
-#define TEST_PRINT_TOKENS
+// #define TEST_PRINT_TOKENS
 #ifdef TEST_PRINT_TOKENS
 	int i = 0, j = 0;
 	for(; i < nr_token; i++) {
