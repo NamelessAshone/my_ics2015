@@ -98,43 +98,45 @@ static bool make_token(char *e) {
 				 */
 				
 				switch(rules[i].token_type) {
-					case NOTYPE:break;
+					case NOTYPE:continue;
 					case NUM:tokens[nr_token].type = NUM;
-							 memcpy(tokens[nr_token].str, substr_start, substr_len);
-							 nr_token++;
 							 break;
 					case EQ	:tokens[nr_token].type = EQ;
-							 strcpy(tokens[nr_token].str, "==");
-							 nr_token++;
+							 break;
+					case NEQ:tokens[nr_token].type = NEQ;
+							 break;
+					case LSS:tokens[nr_token].type = LSS;
+							 break;
+					case LEQ:tokens[nr_token].type = LEQ;
+							 break;
+					case GTR:tokens[nr_token].type = GTR;
+							 break;
+					case GEQ:tokens[nr_token].type = GEQ;
 							 break;
 					case '+':tokens[nr_token].type = '+';
-							 strcpy(tokens[nr_token].str, "+");
-							 nr_token++;
 							 break;
 					case '-':tokens[nr_token].type = '-';
-							 strcpy(tokens[nr_token].str, "-");
-							 nr_token++;
 							 break;
 					case '*':tokens[nr_token].type = '*';
-							 strcpy(tokens[nr_token].str, "*");
-							 nr_token++;
 							 break;
 					case '/':tokens[nr_token].type = '/';
-							 strcpy(tokens[nr_token].str, "/");
-							 nr_token++;
 							 break;
 					case '(':tokens[nr_token].type = '(';
-							 strcpy(tokens[nr_token].str, "(");
-							 nr_token++;
 							 break;
 					case ')':tokens[nr_token].type = ')';
-							 strcpy(tokens[nr_token].str, ")");
-							 nr_token++;
 							 break;
-					//case RT :break; 
+					case HEX:tokens[nr_token].type = HEX;
+							 break;
+					case REG:tokens[nr_token].type = REG;
+							 break;
+					case AND:tokens[nr_token].type = AND;
+							 break;
+					case OR :tokens[nr_token].type = OR;
+							 break;
 					default :panic("please implement me");
 				}
-
+				memcpy(tokens[nr_token].str, substr_start, substr_len);
+				nr_token++;
 				break;
 			}
 		}
