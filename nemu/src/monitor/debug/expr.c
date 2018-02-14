@@ -33,12 +33,12 @@ static struct rule {
 	{ "&&", AND},							// and
 	{ "\\|\\|", OR},							// or
 	{ "\\*", '*'},							// multiplay
+	{ "^0x[0-9][a-zA-Z]", HEX},				// hex
 	{ "[0-9]+", NUM},						// num
 	{ "-", '-'},							// subtract
 	{ "/", '/'},							// divide
 	{ "\\(", '('},							// left bracket
 	{ "\\)", ')'},							// right bracket
-	{ "^0x[0-9][a-zA-Z]", HEX},				// hex
 	{ "^\\$((e)?([abcd]x|[si]p)|[abcd]l|[abcd]h)", REG},
 											// register
 
