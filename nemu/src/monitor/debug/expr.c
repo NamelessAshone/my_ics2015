@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, NUM, RT
+	NOTYPE = 256, EQ, LEQ, LSS, GEQ, GTR, NEQ , AND, OR, NUM, HEX, DEREF, REG
 
 	/* TODO: Add more token types */
 
@@ -25,15 +25,23 @@ static struct rule {
 	{ " +",	NOTYPE},						// spaces
 	{ "\\+", '+'},							// plus
 	{ "==", EQ},							// equal
+	{ "<=", LEQ},							// less or equal
+	{ "<", LSS},							// less
+	{ ">=", GEQ},							// greater or equal
+	{ ">", GTR},							// greater
+	{ "!=", NEQ},							// not equal
+	{ "&&", AND},							// and
+	{ "||", OR},							// or
 	{ "\\*", '*'},							// multiplay
-	/* { "-?([1-9][0-9]*|0+)", NUM},		// num
-	 */
-	{ "[1-9][0-9]*|0+", NUM},				// num
+	{ "[0-9]+", NUM},						// num
 	{ "-", '-'},							// subtract
 	{ "/", '/'},							// divide
 	{ "\\(", '('},							// left bracket
 	{ "\\)", ')'},							// right bracket
-	{ "\\n+", RT}							// return
+	{ "^0x[0-9][a-zA-Z]", HEX},				// hex
+	{ "^\\$(e)?([abcd]x|[si]p)|[abcd]l|[abcd]h"}
+											// register
+
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -173,6 +181,7 @@ struct {
 };
 
 #define NR_OP (sizeof(op_level) / sizeof(op_level[0]))
+
 static int get_op_level(char ch) {
 	int i;
 	for(i = 0; i < NR_OP; i++)
