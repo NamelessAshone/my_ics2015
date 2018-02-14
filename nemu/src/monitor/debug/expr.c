@@ -39,7 +39,7 @@ static struct rule {
 	{ "\\(", '('},							// left bracket
 	{ "\\)", ')'},							// right bracket
 	{ "^0x[0-9][a-zA-Z]", HEX},				// hex
-	{ "^\\$(e)?([abcd]x|[si]p)|[abcd]l|[abcd]h"}
+	{ "^\\$(e)?([abcd]x|[si]p)|[abcd]l|[abcd]h", REG},
 											// register
 
 };
