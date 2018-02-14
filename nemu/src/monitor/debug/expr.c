@@ -31,7 +31,7 @@ static struct rule {
 	{ ">", GTR},							// greater
 	{ "!=", NEQ},							// not equal
 	{ "&&", AND},							// and
-	{ "\\|\\|", OR},							// or
+	{ "\\|\\|", OR},						// or
 	{ "\\*", '*'},							// multiplay
 	{ "^0x[0-9a-fA-F]+", HEX},				// hex
 	{ "[0-9]+", NUM},						// num
@@ -39,7 +39,7 @@ static struct rule {
 	{ "/", '/'},							// divide
 	{ "\\(", '('},							// left bracket
 	{ "\\)", ')'},							// right bracket
-	{ "^\\$((e)?([abcd]x|[si]p)|[abcd]l|[abcd]h)", REG},
+	{ "^\\$((e)?([abcd]x|[bs]p|[ds]i)|[abcd]l|[abcd]h)", REG},
 											// register
 
 };
@@ -172,19 +172,17 @@ static bool check_parentheses(int p, int q) {
 	return true;
 }
 
-struct {
+static int get_op_level(char ch) {
+	struct {
 		char type;
 		int level;	
-} op_level[] = {
+	} op_level[] = {
 		{'+', 1},
 		{'-', 1},
 		{'*', 2},
 		{'/', 2}
-};
-
-#define NR_OP (sizeof(op_level) / sizeof(op_level[0]))
-
-static int get_op_level(char ch) {
+	};
+	int NR_OP = sizeof(op_level) / sizeof(op_level[0]);
 	int i;
 	for(i = 0; i < NR_OP; i++)
 		if(op_level[i].type == ch)
@@ -237,9 +235,59 @@ static uint32_t eval(int p, int q) {
 		 * For now this token should be number.
 		 * Return the value of the number.
 		 * */
-		int val = 0;
+	    struct {
+			char *str;
+			int size;
+		    int type;	
+		} reg[] = {
+			{ "$eax", 32, R_EAX},
+			{ "$ecx", 32, R_ECX},
+			{ "$edx", 32, R_EDX},
+			{ "$ebx", 32, R_EBX},
+			{ "$esp", 32, R_ESP},
+			{ "$ebp", 32, R_EBP},
+			{ "$esi", 32, R_ESI},
+			{ "$edi", 32, R_EDI},
+			{ "$ax", 16, R_AX},
+			{ "$cx", 16, R_CX},
+			{ "$dx", 16, R_DX},
+			{ "$bx", 16, R_BX},
+			{ "$sp", 16, R_SP},
+			{ "$bp", 16, R_BP},
+			{ "$si", 16, R_SI},
+			{ "$di", 16, R_DI},
+			{ "$al", 8, R_AL},
+			{ "$cl", 8, R_CL},
+			{ "$dl", 8, R_DL},
+			{ "$bl", 8, R_BL},
+			{ "$ah", 8, R_AH},
+			{ "$ch", 8, R_CH},
+			{ "$dh", 8, R_DH},
+			{ "$bh", 8, R_BH}
+		};
+		uint32_t val = 0;
+  		int nr_reg = sizeof(reg) / sizeof(reg[0]);	
+		int i;
+
+
 		switch(tokens[p].type) {
 			case NUM: sscanf(tokens[p].str, "%d", &val);
+					  break;
+			case REG:
+					  for(i = 0; i < nr_reg; i++)
+						  if(strcmp(tokens[p].str, reg[i].str) == 0) {
+						      switch(reg[i].size) {
+								  case 8 : val = cpu.gpr[reg[i].type%4]._8[reg[i].type >= 4];
+										   break;
+								  case 16: val = cpu.gpr[reg[i].type]._16;
+										   break;
+								  case 32: val = cpu.gpr[reg[i].type]._32;
+										   break;
+							  }
+							  break;
+						  }
+					  break;
+			case HEX: sscanf(tokens[p].str, "%x", &val);
 					  break;
 			default : printf("This token can't be evaluated\n");			  
 		}
@@ -258,10 +306,18 @@ static uint32_t eval(int p, int q) {
 		int val2 = eval(op + 1, q);
 		printf("\33[30;102mval1: %d val2 :%d dominant op : %c\33[0m\n", val1, val2, tokens[op].type);	
 		switch(tokens[op].type) {
-			case '+': return  val1 + val2;
-			case '-': return  val1 - val2;
-			case '*': return  val1 * val2;
-			case '/': return  val1 / val2;
+			case '+': return val1 +  val2;
+			case '-': return val1 -  val2;
+			case '*': return val1 *  val2;
+			case '/': return val1 /  val2;
+			case LSS: return val1 <  val2;
+			case LEQ: return val1 <= val2;
+			case GTR: return val1 >  val2;
+			case GEQ: return val1 >= val2;
+			case EQ : return val1 == val2;
+			case NEQ: return val1 != val2;
+			case AND: return val1 && val2;
+			case OR : return val2 || val2;
 			default : panic("Wrong operator type.\n"); 
 		} 
 	}
