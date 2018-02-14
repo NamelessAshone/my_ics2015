@@ -39,7 +39,7 @@ static struct rule {
 	{ "/", '/'},							// divide
 	{ "\\(", '('},							// left bracket
 	{ "\\)", ')'},							// right bracket
-	{ "^\\$((e)?([abcd]x|[bs]p|[ds]i)|[abcd]l|[abcd]h)", REG},
+	{ "^\\$((e)?([abcd]x|[bsi]p|[ds]i)|[abcd]l|[abcd]h)", REG},
 											// register
 
 };
@@ -235,6 +235,7 @@ static uint32_t eval(int p, int q) {
 		 * For now this token should be number.
 		 * Return the value of the number.
 		 * */
+		enum { R_EIP = 256 };
 	    struct {
 			char *str;
 			int size;
@@ -263,7 +264,8 @@ static uint32_t eval(int p, int q) {
 			{ "$ah", 8, R_AH},
 			{ "$ch", 8, R_CH},
 			{ "$dh", 8, R_DH},
-			{ "$bh", 8, R_BH}
+			{ "$bh", 8, R_BH},
+			{ "$eip", 32, R_EIP}
 		};
 		uint32_t val = 0;
   		int nr_reg = sizeof(reg) / sizeof(reg[0]);	
@@ -273,9 +275,12 @@ static uint32_t eval(int p, int q) {
 		switch(tokens[p].type) {
 			case NUM: sscanf(tokens[p].str, "%d", &val);
 					  break;
-			case REG:
-					  for(i = 0; i < nr_reg; i++)
+			case REG: for(i = 0; i < nr_reg; i++)
 						  if(strcmp(tokens[p].str, reg[i].str) == 0) {
+							  if(reg[i].type == R_EIP) {
+								  val = cpu.eip;
+								  break;
+							  }
 						      switch(reg[i].size) {
 								  case 8 : val = cpu.gpr[reg[i].type%4]._8[reg[i].type >= 4];
 										   break;
