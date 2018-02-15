@@ -207,32 +207,34 @@ static int find_dominant_operator(int p, int q) {
 
 	for(i = q; i >= p; i--) {
 		switch(tokens[i].type) {
-			case AND:
-			case OR :
-			case LSS:
-			case LEQ:
-			case GTR:
-			case GEQ:
-			case EQ :
-			case NEQ:
-			case '+': 
-			case '-':
-		   	case '*': 
-			case '/': if(op == -1)
-						 op = i;
-					  else
-						if(get_op_level(tokens[i].type) < get_op_level(tokens[op].type))
-							op = i;
-					  break; 
-			case ')': u = i - 1;
-					  while(!check_parentheses(u, i) && u >= p) 
-						  u--;
-					  printf("In func 'find_dominant_operator'-->> u: %d, <%d, %d>\n", u, p, q);
-					  if(u == p - 1)
-						  printf("\33[30;46mParentheses match failed\n\33[0m");
-					  i = u;
-					  break;
-			default : continue;		 
+			case MINUS:
+			case DEREF:
+			case AND  :
+			case OR   :
+			case LSS  :
+			case LEQ  :
+			case GTR  :
+			case GEQ  :
+			case EQ   :
+			case NEQ  :
+			case '+'  : 
+			case '-'  :
+		   	case '*'  : 
+			case '/'  : if(op == -1)
+					    	op = i;
+						else
+							if(get_op_level(tokens[i].type) < get_op_level(tokens[op].type))
+								op = i;
+						break; 
+			case ')'  : u = i - 1;
+					    while(!check_parentheses(u, i) && u >= p) 
+						    u--;
+					    printf("In func 'find_dominant_operator'-->> u: %d, <%d, %d>\n", u, p, q);
+					    if(u == p - 1)
+						    printf("\33[30;46mParentheses match failed\n\33[0m");
+					    i = u;
+					    break;
+			default   : continue;		 
 		}
 	}
 
