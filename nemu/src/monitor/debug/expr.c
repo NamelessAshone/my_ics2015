@@ -177,7 +177,6 @@ static int get_op_level(char ch) {
 		int type;
 		int level;	
 	} op_level[] = {
-		
 		{ AND, 0},
 		{ OR , 1},
 		{ GTR, 2},
@@ -193,6 +192,7 @@ static int get_op_level(char ch) {
 	};
 	int NR_OP = sizeof(op_level) / sizeof(op_level[0]);
 	int i;
+
 	for(i = 0; i < NR_OP; i++)
 		if(op_level[i].type == ch)
 			return op_level[i].level;
@@ -204,8 +204,16 @@ static int find_dominant_operator(int p, int q) {
 	int op = -1;
 	int i, u;
 
-	for(i = p; i <= q; i++) {
+	for(i = q; i >= p; i--) {
 		switch(tokens[i].type) {
+			case AND:
+			case OR :
+			case LSS:
+			case LEQ:
+			case GTR:
+			case GEQ:
+			case EQ :
+			case NEQ:
 			case '+': 
 			case '-':
 		   	case '*': 
@@ -215,11 +223,11 @@ static int find_dominant_operator(int p, int q) {
 						if(get_op_level(tokens[i].type) < get_op_level(tokens[op].type))
 							op = i;
 					  break; 
-			case '(': u = i + 1;
-					  while(!check_parentheses(i, u) && u <= q) 
-						  u++;
+			case ')': u = i - 1;
+					  while(!check_parentheses(u, i) && u >= p) 
+						  u--;
 					  printf("In func 'find_dominant_operator'-->> u: %d, <%d, %d>\n", u, p, q);
-					  if(u == q + 1)
+					  if(u == p - 1)
 						  printf("\33[30;46mParentheses match failed\n\33[0m");
 					  i = u;
 					  break;
