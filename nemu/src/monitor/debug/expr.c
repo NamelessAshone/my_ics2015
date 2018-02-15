@@ -382,10 +382,9 @@ uint32_t expr(char *e, bool *success) {
 	for(i = 0; i < nr_token; i++) {
 		if(tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == NUM || tokens[i - 1].type == HEX || tokens[i - 1].type == REG)) {
 			tokens[i].type = DEREF;
-			printf("1");
 		}
 	}
-
+	printf("DEREF? %d\n", tokens[0].type == DEREF);
 
 #define TEST_PRINT_TOKENS
 #ifdef TEST_PRINT_TOKENS
