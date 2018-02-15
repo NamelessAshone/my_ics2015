@@ -185,10 +185,11 @@ static int get_op_level(char ch) {
 		{ LEQ, 2},
 		{ EQ , 2},
 		{ NEQ, 2},
-		{ '+', 3},
-		{ '-', 3},
-		{ '*', 4},
-		{ '/', 4}
+		{ DEREF,3},
+		{ '+', 4},
+		{ '-', 4},
+		{ '*', 5},
+		{ '/', 5}
 	};
 	int NR_OP = sizeof(op_level) / sizeof(op_level[0]);
 	int i;
