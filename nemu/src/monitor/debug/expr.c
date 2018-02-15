@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, LEQ, LSS, GEQ, GTR, NEQ , AND, OR, NUM, HEX, DEREF, REG
+	NOTYPE = 256, EQ, LEQ, LSS, GEQ, GTR, NEQ , AND, OR, NUM, HEX, DEREF, MINUS, REG
 
 	/* TODO: Add more token types */
 
@@ -324,24 +324,35 @@ static uint32_t eval(int p, int q) {
 		printf("fork 4\n");
 		/* We should do more things here. */
 		int op = find_dominant_operator(p, q);
-		int	val1 = eval(p, op - 1);
-		int val2 = eval(op + 1, q);
-		printf("\33[30;102mval1: %d val2 :%d dominant op : %c\33[0m\n", val1, val2, tokens[op].type);	
-		switch(tokens[op].type) {
-			case '+': return val1 +  val2;
-			case '-': return val1 -  val2;
-			case '*': return val1 *  val2;
-			case '/': return val1 /  val2;
-			case LSS: return val1 <  val2;
-			case LEQ: return val1 <= val2;
-			case GTR: return val1 >  val2;
-			case GEQ: return val1 >= val2;
-			case EQ : return val1 == val2;
-			case NEQ: return val1 != val2;
-			case AND: return val1 && val2;
-			case OR : return val2 || val2;
-			default : panic("Wrong operator type.\n"); 
-		} 
+		int	val1 = 0;
+		int val2 = 0;
+		if(tokens[op].type == DEREF) {
+			val1 = eval(op + 1, q);
+			printf("\33[30;102maddress: 0x%x  val: 0x%x  dominant op : DEREF\33[0m\n", val1, swaddr_read(val1, 1));	
+			return swaddr_read(val1, 1);
+		} else if (tokens[op].type == MINUS) {
+			val1 = eval(op + 1, q);
+			printf("\33[30;102mbefore: %x after: %x dominant op : MINUS'\33[0m\n", val1, -val1);			return -val1;	
+		} else {
+		    val1 = eval(p, op - 1);
+			val2 = eval(op + 1, q);
+			printf("\33[30;102mval1: %d val2 :%d dominant op : %c\33[0m\n", val1, val2, tokens[op].type);	
+			switch(tokens[op].type) {
+				case '+'  : return val1 +  val2;
+				case '-'  : return val1 -  val2;
+				case '*'  : return val1 *  val2;
+				case '/'  : return val1 /  val2;
+				case LSS  : return val1 <  val2;
+				case LEQ  : return val1 <= val2;
+				case GTR  : return val1 >  val2;
+				case GEQ  : return val1 >= val2;
+				case EQ   : return val1 == val2;
+				case NEQ  : return val1 != val2;
+				case AND  : return val1 && val2;
+				case OR   : return val2 || val2;
+				default : panic("Wrong operator type.\n"); 		
+			} 		
+		}
 	}
 }
 
@@ -379,6 +390,12 @@ uint32_t expr(char *e, bool *success) {
 	printf("\33[30;102m%c\33[0m\n",tokens[find_dominant_operator(0, nr_token - 1)].type);
 #endif
 	/* TODO: Insert codes to evaluate the expression. */
+	int i = 0;
+	for(i = 0; i < nr_token; i++) {
+		if(tokens[i].type == '*' && (i = 0 || tokens[i - 1].type == NUM || tokens[i - 1].type == HEX || tokens[i - 1].type == REG)) {
+			tokens[i].type = DEREF;
+		}
+	}
     int r = eval(0,nr_token-1);
 	printf("\33[30;102m%d\n0x%x\n\33[0m", r, r);
 
