@@ -190,6 +190,7 @@ static int get_op_level(char ch) {
 		{ '*', 4},
 		{ '/', 4},
 		{ DEREF, 5},
+		{ MINUS, 5}
 	};
 	int NR_OP = sizeof(op_level) / sizeof(op_level[0]);
 	int i;
@@ -197,7 +198,7 @@ static int get_op_level(char ch) {
 	for(i = 0; i < NR_OP; i++)
 		if(op_level[i].type == ch)
 			return op_level[i].level;
-	printf("Can't find this op's <%c> level.\n", ch);
+	printf("Can't find this op's <%d> level.\n", ch);
 	return -1;
 }
 
@@ -222,10 +223,8 @@ static int find_dominant_operator(int p, int q) {
 		   	case '*'  : 
 			case '/'  : if(op == -1)
 					    	op = i;
-						else {
-							if(get_op_level(tokens[i].type) <= get_op_level(tokens[op].type))
-								op = i;
-						}
+						else if(get_op_level(tokens[i].type) <= get_op_level(tokens[op].type))
+							op = i;
 						break; 
 			case ')'  : u = i - 1;
 					    while(!check_parentheses(u, i) && u >= p) 
@@ -292,7 +291,6 @@ static uint32_t eval(int p, int q) {
   		int nr_reg = sizeof(reg) / sizeof(reg[0]);	
 		int i;
 
-
 		switch(tokens[p].type) {
 			case NUM: sscanf(tokens[p].str, "%d", &val);
 					  break;
@@ -331,13 +329,16 @@ static uint32_t eval(int p, int q) {
 		int	val1 = 0;
 		int val2 = 0;
 		if(tokens[op].type == DEREF) {
+			printf("INTO DEREF FORK\n");
 			val1 = eval(op + 1, q);
 			printf("\33[30;102maddress: 0x%x  val: 0x%x  dominant op : DEREF\33[0m\n", val1, swaddr_read(val1, 1));	
 			return swaddr_read(val1, 1);
 		} else if (tokens[op].type == MINUS) {
+			printf("INTO MINUS FORK\n");
 			val1 = eval(op + 1, q);
 			printf("\33[30;102mbefore: %x after: %x dominant op : MINUS'\33[0m\n", val1, -val1);			return -val1;	
 		} else {
+			printf("INTO NORMAL FORK\n");
 		    val1 = eval(p, op - 1);
 			val2 = eval(op + 1, q);
 			printf("\33[30;102mval1: %d val2 :%d dominant op : %c\33[0m\n", val1, val2, tokens[op].type);	
