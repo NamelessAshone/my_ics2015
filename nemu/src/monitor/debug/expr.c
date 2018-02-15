@@ -384,6 +384,9 @@ uint32_t expr(char *e, bool *success) {
 		if(tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == NUM || tokens[i - 1].type == HEX || tokens[i - 1].type == REG)) {
 			tokens[i].type = DEREF;
 		}
+		if(tokens[i].type == '-' && (i == 0 || tokens[i - 1].type == NUM || tokens[i - 1].type == HEX || tokens[i - 1].type == REG)) {
+			tokens[i].type = MINUS;
+		}
 	}
 	printf("DEREF? %d\n", tokens[0].type == DEREF);
 
