@@ -174,13 +174,22 @@ static bool check_parentheses(int p, int q) {
 
 static int get_op_level(char ch) {
 	struct {
-		char type;
+		int type;
 		int level;	
 	} op_level[] = {
-		{'+', 1},
-		{'-', 1},
-		{'*', 2},
-		{'/', 2}
+		
+		{ AND, 0},
+		{ OR , 1},
+		{ GTR, 2},
+		{ GEQ, 2},
+		{ LSS, 2},
+		{ LEQ, 2},
+		{ EQ , 2},
+		{ NEQ, 2},
+		{ '+', 3},
+		{ '-', 3},
+		{ '*', 4},
+		{ '/', 4}
 	};
 	int NR_OP = sizeof(op_level) / sizeof(op_level[0]);
 	int i;
