@@ -361,22 +361,6 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
-
-// #define TEST_PRINT_TOKENS
-#ifdef TEST_PRINT_TOKENS
-	int i = 0, j = 0;
-	for(; i < nr_token; i++) {
-		printf("'%s'\t",tokens[i].str);
-		if(i % 10 == 9 || i == nr_token - 1) {
-			printf("\n");
-			while(j != i + 1) 
-				printf("%d\t", j++);
-			printf("\n");
-		}
-	}
-	printf("\n");
-#endif
-
 #ifdef TEST_CHECK_PARETHESE
 	printf("[[%d]]\n",nr_token);
 	if(check_parentheses(0, nr_token))
@@ -396,6 +380,23 @@ uint32_t expr(char *e, bool *success) {
 			tokens[i].type = DEREF;
 		}
 	}
+#define TEST_PRINT_TOKENS
+#ifdef TEST_PRINT_TOKENS
+	i = 0;
+    int j = 0;
+	for(; i < nr_token; i++) {
+		printf("'%s'\t",tokens[i].str);
+		if(i % 10 == 9 || i == nr_token - 1) {
+			printf("\n");
+			while(j != i + 1) 
+				printf("%d\t", j++);
+			printf("\n");
+		}
+	}
+	printf("\n");
+#endif
+
+
     int r = eval(0,nr_token-1);
 	printf("\33[30;102m%d\n0x%x\n\33[0m", r, r);
 
