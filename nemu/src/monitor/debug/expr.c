@@ -172,7 +172,7 @@ static bool check_parentheses(int p, int q) {
 	return true;
 }
 
-static int get_op_level(char ch) {
+static int get_op_level(int op) {
 	struct {
 		int type;
 		int level;	
@@ -196,9 +196,10 @@ static int get_op_level(char ch) {
 	int i;
 
 	for(i = 0; i < NR_OP; i++)
-		if(op_level[i].type == ch)
+		if(op_level[i].type == op)
 			return op_level[i].level;
-	printf("Can't find this op's <%d> level.\n", ch);
+	if(i == NR_OP)
+		printf("Can't find this op's <%d> level.\n", op);
 	return -1;
 }
 
@@ -229,7 +230,7 @@ static int find_dominant_operator(int p, int q) {
 			case ')'  : u = i - 1;
 					    while(!check_parentheses(u, i) && u >= p) 
 						    u--;
-					    printf("In func 'find_dominant_operator'-->> u: %d, <%d, %d>\n", u, p, q);
+					    //printf("In func 'find_dominant_operator'-->> u: %d, <%d, %d>\n", u, p, q);
 					    if(u == p - 1)
 						    printf("\33[30;46mParentheses match failed\n\33[0m");
 					    i = u;
@@ -238,19 +239,19 @@ static int find_dominant_operator(int p, int q) {
 		}
 	}
 
-	printf("op : %d<%c>\n", op, tokens[op].type);
+	//printf("op : %d<%c>\n", op, tokens[op].type);
 	return op;
 }
 
 static uint32_t eval(int p, int q) {
-	printf("\33[30;41mIn func eval -->> p = %d , q = %d\33[0m\n", p, q);
+	//printf("\33[30;41mIn func eval -->> p = %d , q = %d\33[0m\n", p, q);
 	if(p > q) {
-		printf("fork 1\n");
+		//printf("fork 1\n");
 		/* Bad expression. */
 		panic("Bad expression fault.\n");
 		return 0;
 	} else if(p == q) {
-		printf("fork 2\n");
+		//printf("fork 2\n");
 		/* Single token.
 		 * For now this token should be number.
 		 * Return the value of the number.
@@ -314,34 +315,35 @@ static uint32_t eval(int p, int q) {
 			case HEX: sscanf(tokens[p].str, "%x", &val);
 					  break;
 			default : printf("This token can't be evaluated\n");			  
-		}
+		};
 		return val;
 	} else if(check_parentheses(p, q) == true) {
-		printf("fork 3\n");
+		//printf("fork 3\n");
 		/* The expression is surrounded by a matched pair of parentheses.
 		 * If that is the case, just throw away the parentheses. 
 		 * */
 		return eval(p + 1, q - 1);
 	} else {
-		printf("fork 4\n");
+	 	//printf("fork 4\n");
 		/* We should do more things here. */
 		int op = find_dominant_operator(p, q);
 		int	val1 = 0;
 		int val2 = 0;
 		if(tokens[op].type == DEREF) {
-			printf("INTO DEREF FORK\n");
+			//printf("INTO DEREF FORK\n");
 			val1 = eval(op + 1, q);
-			printf("\33[30;102maddress: 0x%x  val: 0x%x  dominant op : DEREF\33[0m\n", val1, swaddr_read(val1, 1));	
+			//printf("\33[30;102maddress: 0x%x  val: 0x%x  dominant op : DEREF\33[0m\n", val1, swaddr_read(val1, 1));	
 			return swaddr_read(val1, 1);
 		} else if (tokens[op].type == MINUS) {
-			printf("INTO MINUS FORK\n");
+			//printf("INTO MINUS FORK\n");
 			val1 = eval(op + 1, q);
-			printf("\33[30;102mbefore: %x after: %x dominant op : MINUS'\33[0m\n", val1, -val1);			return -val1;	
+			//printf("\33[30;102mbefore: %x after: %x dominant op : MINUS'\33[0m\n", val1, -val1);			
+			return -val1;	
 		} else {
-			printf("INTO NORMAL FORK\n");
+			//printf("INTO NORMAL FORK\n");
 		    val1 = eval(p, op - 1);
 			val2 = eval(op + 1, q);
-			printf("\33[30;102mval1: %d val2 :%d dominant op : %c\33[0m\n", val1, val2, tokens[op].type);	
+			//printf("\33[30;102mval1: %d val2 :%d dominant op : %c\33[0m\n", val1, val2, tokens[op].type);	
 			switch(tokens[op].type) {
 				case '+'  : return val1 +  val2;
 				case '-'  : return val1 -  val2;
@@ -367,7 +369,6 @@ uint32_t expr(char *e, bool *success) {
 		return 0;
 	}
 
-
 #ifdef TEST_CHECK_PARETHESE
 	printf("[[%d]]\n",nr_token);
 	if(check_parentheses(0, nr_token))
@@ -392,9 +393,9 @@ uint32_t expr(char *e, bool *success) {
 			tokens[i].type = MINUS;
 		}
 	}
-	printf("DEREF? %d\n", tokens[0].type == DEREF);
+	//printf("DEREF? %d\n", tokens[0].type == DEREF);
 
-#define TEST_PRINT_TOKENS
+//#define TEST_PRINT_TOKENS
 #ifdef TEST_PRINT_TOKENS
 	i = 0;
     int j = 0;
@@ -411,10 +412,9 @@ uint32_t expr(char *e, bool *success) {
 #endif
 
 
-    int r = eval(0,nr_token-1);
-	printf("\33[30;102m%d\n0x%x\n\33[0m", r, r);
-
+    uint32_t r = eval(0,nr_token-1);
+	//printf("\33[30;102m%d\n0x%x\n\33[0m", r, r);
 	//panic("please implement me");
-	return 0;
+	return r;
 }
 
