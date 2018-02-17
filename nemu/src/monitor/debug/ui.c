@@ -42,7 +42,7 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_x(char *args) {
-	//ssx : scan the memory for print
+	//ssx : scan the memory to print
 	char *addr_str = NULL;
 	char *len_str = NULL;
 	int len = 1;
@@ -74,10 +74,26 @@ static int cmd_x(char *args) {
 	return 0;
 }
 
+static int cmd_d(char *args) {
+	int del_no = -1;
+	WP *ptr = NULL;
+
+   	sscanf(args, "%d", &del_no);
+	if(del_no == EOF || del_no >= get_NR_WP() || del_no < 0) {
+		printf("The wp no must in <0, %d>\n", get_NR_WP());
+		return 0;
+	}
+	ptr = get_wp_ptr(del_no);
+	if(ptr != NULL) {
+		free_wp(ptr);
+	}
+	return 0;
+}
+
 static int cmd_info(char *args) {
 	if(args == NULL) {
 	
-	}else if(strcmp(args,"r") == 0) {
+	} else if(strcmp(args, "r") == 0) {
 		printf("EAX: 0x%08X\tECX: 0x%08X\tEDX: 0x%08X\tEBX: 0x%08X\n",
 			   cpu.eax,cpu.ecx,cpu.edx,cpu.ebx);
 		printf("ESP: 0x%08X\tEBP: 0x%08X\tESI: 0x%08X\tEDI: 0x%08X\n",
@@ -91,6 +107,9 @@ static int cmd_info(char *args) {
 		printf("AL:        0x%02X\tCL:        0x%02X\tDL:        0x%02X\tBL:        0x%02X\n",
 			   reg_b(R_AL),reg_b(R_CL),reg_b(R_DL),reg_b(R_BL));
 
+	} else if(strcmp(args, "w") == 0) {
+		//WP *tmp = NULL;
+		//printf("%x", tmp);
 	}
 	return 0;
 }
@@ -117,13 +136,14 @@ static struct {
 	char *description;
 	int (*handler) (char *);
 } cmd_table [] = {
-	{ "help", "Display informations about all supported commands", cmd_help },
-	{ "c", "Continue the execution of the program", cmd_c },
-	{ "q", "Exit NEMU", cmd_q },
-	{ "si", "Sigle-step run", cmd_si },
-	{ "info","Print cpu's information", cmd_info },
-	{ "x","Scan memory and print them", cmd_x },
-	{ "p","Evaluate the following expression",cmd_p}
+	{ "help", "Display informations about all supported commands", cmd_help},
+	{ "c"	, "Continue the execution of the program", cmd_c},
+	{ "q"	, "Exit NEMU", cmd_q},
+	{ "si"	, "Sigle-step run", cmd_si},
+	{ "info", "Print cpu's information", cmd_info},
+	{ "x"	, "Scan memory and print them", cmd_x},
+	{ "p"	, "Evaluate the following expression", cmd_p},
+	{ "d"	, "Delete a watchpoint", cmd_d}
 	/* TODO: Add more commands */
 
 };
