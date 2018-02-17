@@ -78,6 +78,6 @@ void print_wp() {
 	printf("Num\tType\tAddress\tWhat\n");
 	for(i = 0; i < NR_WP; i++) {
 		if(wp_pool[i].enb == true)
-			printf("%-3.d\thw wp\t-------\t%s\n", wp_pool[i].NO, wp_pool[i].what);
+			printf("%-.3d\thw wp\t-------\t%s\n", wp_pool[i].NO, wp_pool[i].what);
 	}
 }
