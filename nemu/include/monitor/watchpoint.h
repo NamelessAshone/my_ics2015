@@ -17,6 +17,8 @@ typedef struct watchpoint {
 
 } WP;
 
+void init_wp_pool();
+
 int get_NR_WP();
 
 WP *get_wp_ptr(int no); 
