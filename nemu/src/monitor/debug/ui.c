@@ -128,6 +128,21 @@ EXCEPTION_NULL_ARGS:
 	return 0;
 }
 
+static int cmd_w(char *args) {
+	uint32_t val1;
+	bool success = false;
+	val1 = expr(args, &success);
+	if(success == false) {
+		printf("Wrong expr\n");
+		return 0;
+	}
+	WP *new = new_wp();	
+	new->val = val1;
+	new->enb = true;
+	strcpy(new->what, args);	
+	return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -142,7 +157,8 @@ static struct {
 	{ "info", "Print cpu's information", cmd_info},
 	{ "x"	, "Scan memory and print them", cmd_x},
 	{ "p"	, "Evaluate the following expression", cmd_p},
-	{ "d"	, "Delete a watchpoint", cmd_d}
+	{ "d"	, "Delete a watchpoint", cmd_d},
+	{ "w"	, "Set a watchpoint", cmd_w}
 	/* TODO: Add more commands */
 
 };
