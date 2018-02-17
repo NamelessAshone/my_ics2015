@@ -130,7 +130,7 @@ EXCEPTION_NULL_ARGS:
 
 static int cmd_w(char *args) {
 	uint32_t val1;
-	bool success = false;
+	bool success = true;
 	val1 = expr(args, &success);
 	if(success == false) {
 		printf("Wrong expr\n");
