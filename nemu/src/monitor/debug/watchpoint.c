@@ -3,6 +3,9 @@
 
 #define NR_WP 32
 
+#define HW_WATCHPOINT 1
+#define BREAKPOINT 2
+
 static WP wp_pool[NR_WP];
 static WP *head, *free_;
 
@@ -40,12 +43,14 @@ WP *new_wp() {
 	if(free_->next == NULL)
 		panic("No free watchpoint\n");
 	free_ = free_->next;
+	new->enb = true;
 	return new;
 }
 
 void free_wp(WP *wp) {
 	WP *tmp = free_;
 
+	wp->enb = false;
 	while(tmp->next != NULL) {
 		if(tmp == wp) {
 			printf("This wp '%d' no need to been free\n", wp->NO);
@@ -66,4 +71,13 @@ void free_wp(WP *wp) {
 			head = head->next;
 	}
  	wp->next = NULL;	
+}
+
+void print_wp() {
+	int i;
+	printf("Num\tType\tAddress\tWhat\n");
+	for(i = 0; i < NR_WP; i++) {
+		if(wp_pool[i].enb == true)
+			printf("%-3.d\thw wp\t-------\t%s\n", wp_pool[i].NO, wp_pool[i].what);
+	}
 }

@@ -108,8 +108,7 @@ static int cmd_info(char *args) {
 			   reg_b(R_AL),reg_b(R_CL),reg_b(R_DL),reg_b(R_BL));
 
 	} else if(strcmp(args, "w") == 0) {
-		//WP *tmp = NULL;
-		//printf("%x", tmp);
+		print_wp();
 	}
 	return 0;
 }
