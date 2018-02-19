@@ -81,3 +81,19 @@ void print_wp() {
 			printf("%-.3d\thw wp\t-------\t%s\n", wp_pool[i].NO, wp_pool[i].what);
 	}
 }
+
+int check_wp_pool() {
+	WP *begin = head;
+	if(begin == NULL)
+		return -1;
+	while(begin->next != free_) {
+		bool success = true;
+		if(begin->val != expr(begin->what, &success)) {
+			if(success == true)
+				return begin->NO;
+			else
+				return -1;
+		}
+	}
+	return -1;
+}

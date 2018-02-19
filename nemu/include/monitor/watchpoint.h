@@ -29,4 +29,6 @@ WP *new_wp();
 
 void free_wp(WP *wp);
 
+int check_wp_pool();
+
 #endif
