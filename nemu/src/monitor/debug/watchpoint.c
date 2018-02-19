@@ -82,13 +82,14 @@ void print_wp() {
 	}
 }
 
-int check_wp_pool() {
+int check_wp_pool(uint32_t *new_val) {
 	WP *begin = head;
 	if(begin == NULL)
 		return -1;
 	while(begin->next != free_) {
 		bool success = true;
-		if(begin->val != expr(begin->what, &success)) {
+		(*new_val) = expr(begin->what, &success);
+		if(begin->val != (*new_val)) {
 			if(success == true)
 				return begin->NO;
 			else

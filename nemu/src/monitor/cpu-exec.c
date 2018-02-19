@@ -74,10 +74,13 @@ void cpu_exec(volatile uint32_t n) {
 
 		/* TODO: check watchpoints here. */
 		int wp_no = -1;
-		wp_no = check_wp_pool();
+		int new_val = 0;
+		wp_no = check_wp_pool(&new_val);
 		if(wp_no > -1) {
 			nemu_state = STOP;
-			printf("what");
+			WP *wp = get_wp_ptr(wp_no);
+			printf("hw watchpoint %d : %s\nNew value: %d\nOld value: %d\nWhere\n", wp_no, wp->what, new_val, wp->val);
+			wp->val = new_val;
 		}	
 			
 		if(nemu_state != RUNNING) { return; }
