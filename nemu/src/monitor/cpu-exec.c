@@ -74,7 +74,7 @@ void cpu_exec(volatile uint32_t n) {
 
 		/* TODO: check watchpoints here. */
 		int wp_no = -1;
-		int new_val = 0;
+		uint32_t new_val = 0;
 		wp_no = check_wp_pool(&new_val);
 		if(wp_no > -1) {
 			nemu_state = STOP;
