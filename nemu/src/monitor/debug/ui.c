@@ -143,7 +143,7 @@ static int cmd_w(char *args) {
 	new->val = val1;
 	new->enb = true;
 	strcpy(new->what, args);
-    printf("val of the expr \"%s\" = 0x%08x", new->what, val1);
+    printf("val of the expr \"%s\" = 0x%08x\n", new->what, val1);
 	return 0;
 }
 
