@@ -118,8 +118,8 @@ static int cmd_p(char *args) {
 	if(!args) {
 		goto EXCEPTION_NULL_ARGS;
 	}
-
-	expr(args, &success);
+	int r = expr(args, &success);
+	printf("val = %d (0x%8x)\n", r, r);
 	
 	return 1;
 	
