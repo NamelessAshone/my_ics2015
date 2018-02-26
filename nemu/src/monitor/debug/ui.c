@@ -94,19 +94,18 @@ static int cmd_info(char *args) {
 	if(args == NULL) {
 	
 	} else if(strcmp(args, "r") == 0) {
-		printf("EAX: 0x%08X\tECX: 0x%08X\tEDX: 0x%08X\tEBX: 0x%08X\n",
-			   cpu.eax,cpu.ecx,cpu.edx,cpu.ebx);
-		printf("ESP: 0x%08X\tEBP: 0x%08X\tESI: 0x%08X\tEDI: 0x%08X\n",
-			   cpu.esp,cpu.ebp,cpu.esi,cpu.edi);
-		printf("AX:      0x%04X\tCX:      0x%04X\tDX:      0x%04X\tBX:      0x%04X\n",
-			   reg_w(R_AX),reg_w(R_CX),reg_w(R_DX),reg_w(R_BX));
-		printf("SP:      0x%04X\tDP:      0x%04X\tSI:      0x%04X\tDI:      0x%04X\n",
-		       reg_w(R_SP),reg_w(R_BP),reg_w(R_SI),reg_w(R_DI));
-		printf("AH:        0x%02X\tCH:        0x%02X\tDH:        0x%02X\tBH:        0x%02X\n",
-			   reg_b(R_AH),reg_b(R_CH),reg_b(R_DH),reg_b(R_BH));
-		printf("AL:        0x%02X\tCL:        0x%02X\tDL:        0x%02X\tBL:        0x%02X\n",
-			   reg_b(R_AL),reg_b(R_CL),reg_b(R_DL),reg_b(R_BL));
-
+		printf("EAX: %08X\tECX: %08X\tEDX: %08X\tEBX: %08X\n",
+			   cpu.eax, cpu.ecx, cpu.edx, cpu.ebx);
+		printf(" AX: %04X\t CX: %04X\t DX: %04X\t BX: %04X\n",
+			   reg_w(R_AX), reg_w(R_CX), reg_w(R_DX), reg_w(R_BX));
+		printf(" AH: %02X\t CH: %02X\t DH: %02X\t BH: %02X\n",
+			   reg_b(R_AH), reg_b(R_CH), reg_b(R_DH), reg_b(R_BH));
+		printf(" AL: %02X\t CL: %02X\t DL: %02X\t BL: %02X\n",
+			   reg_b(R_AL), reg_b(R_CL), reg_b(R_DL), reg_b(R_BL));
+		printf("ESP: %08X\tEBP: %08X\tESI: %08X\tEDI: %08X\n",
+			   cpu.esp, cpu.ebp, cpu.esi, cpu.edi);
+		printf(" SP: %04X\t DP:  %04X\tSI: %04X\t DI:  %04X\n",
+		       reg_w(R_SP), reg_w(R_BP), reg_w(R_SI), reg_w(R_DI));
 	} else if(strcmp(args, "w") == 0) {
 		print_wp();
 	}
