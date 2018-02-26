@@ -75,10 +75,10 @@ void free_wp(WP *wp) {
 
 void print_wp() {
 	int i;
-	printf("Num\tType\tAddress\tWhat\n");
+	printf("Num\tType\tAddress\tWhat\tValue\n");
 	for(i = 0; i < NR_WP; i++) {
 		if(wp_pool[i].enb == true)
-			printf("%-.3d\thw wp\t-------\t%s\n", wp_pool[i].NO, wp_pool[i].what);
+			printf("%-.3d\thw wp\t-------\t%s\t%d\n", wp_pool[i].NO, wp_pool[i].what, wp_pool[i].val);
 	}
 }
 
