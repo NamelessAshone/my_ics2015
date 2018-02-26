@@ -104,7 +104,7 @@ static int cmd_info(char *args) {
 			   reg_b(R_AL), reg_b(R_CL), reg_b(R_DL), reg_b(R_BL));
 		printf("ESP: %08X\tEBP: %08X\tESI: %08X\tEDI: %08X\n",
 			   cpu.esp, cpu.ebp, cpu.esi, cpu.edi);
-		printf(" SP: %8.4X\t DP: %8.4X\tSI: %8.4X\t DI: %8.4X\n",
+		printf(" SP: %8.4X\t DP: %8.4X\t SI: %8.4X\t DI: %8.4X\n",
 		       reg_w(R_SP), reg_w(R_BP), reg_w(R_SI), reg_w(R_DI));
 		printf("EIP: %08X\n", cpu.eip);
 	} else if(strcmp(args, "w") == 0) {
