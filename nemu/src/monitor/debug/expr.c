@@ -415,7 +415,7 @@ uint32_t expr(char *e, bool *success) {
     uint32_t r = eval(0,nr_token-1);
 	//printf("\33[30;102m%d\n0x%x\n\33[0m", r, r);
 	//panic("please implement me");
-	*success = true;
+	(*success) = true;
 	return r;
 }
 
