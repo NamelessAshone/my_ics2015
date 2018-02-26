@@ -79,7 +79,10 @@ void cpu_exec(volatile uint32_t n) {
 		if(wp_no > -1) {
 			nemu_state = STOP;
 			WP *wp = get_wp_ptr(wp_no);
-			printf("hw watchpoint %d : %s\nNew value: %d\nOld value: %d\nWhere\n", wp_no, wp->what, new_val, wp->val);
+			printf("hw watchpoint %d : %s\n"
+				   "New value: %d\n"
+				   "Old value: %d\n"
+				   "Where\n", wp_no, wp->what, new_val, wp->val);
 			wp->val = new_val;
 		}	
 			
