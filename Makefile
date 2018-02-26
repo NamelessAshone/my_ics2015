@@ -4,7 +4,7 @@
 
 CC := gcc
 LD := ld
-CFLAGS := -MMD -Wall -Werror -c
+CFLAGS := -MMD -Wall -Werror -c -g 
 
 LIB_COMMON_DIR := lib-common
 NEWLIBC_DIR := $(LIB_COMMON_DIR)/newlib
