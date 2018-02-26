@@ -86,7 +86,7 @@ int check_wp_pool(uint32_t *new_val) {
 	WP *begin = head;
 	if(begin == NULL)
 		return -1;
-	while(begin->next != free_) {
+	while(begin != free_) {
 		bool success = true;
 		(*new_val) = expr(begin->what, &success);
 		if(begin->val != (*new_val)) {
@@ -95,6 +95,7 @@ int check_wp_pool(uint32_t *new_val) {
 			else
 				return -1;
 		}
+		begin = begin->next;
 	}
 	return -1;
 }
