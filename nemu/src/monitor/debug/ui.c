@@ -142,7 +142,8 @@ static int cmd_w(char *args) {
 	WP *new = new_wp();	
 	new->val = val1;
 	new->enb = true;
-	strcpy(new->what, args);	
+	strcpy(new->what, args);
+    printf("val of the expr \"%s\" = 0x%08x", new->what, val1);
 	return 0;
 }
 
