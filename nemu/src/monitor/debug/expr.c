@@ -368,7 +368,7 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
-
+/*
 #ifdef TEST_CHECK_PARETHESE
 	printf("[[%d]]\n",nr_token);
 	if(check_parentheses(0, nr_token))
@@ -381,7 +381,7 @@ uint32_t expr(char *e, bool *success) {
 	printf("\33[30;102mdominant op : \33[0m");
 	printf("\33[30;102m%c\33[0m\n",tokens[find_dominant_operator(0, nr_token - 1)].type);
 #endif
-
+*/
 
 	/* TODO: Insert codes to evaluate the expression. */
 	int i = 0;
@@ -394,7 +394,7 @@ uint32_t expr(char *e, bool *success) {
 		}
 	}
 	//printf("DEREF? %d\n", tokens[0].type == DEREF);
-
+/*
 //#define TEST_PRINT_TOKENS
 #ifdef TEST_PRINT_TOKENS
 	i = 0;
@@ -410,12 +410,12 @@ uint32_t expr(char *e, bool *success) {
 	}
 	printf("\n");
 #endif
-
+*/
 
     uint32_t r = eval(0,nr_token-1);
 	//printf("\33[30;102m%d\n0x%x\n\33[0m", r, r);
 	//panic("please implement me");
-	(*success) = true;
+	*success = true;
 	return r;
 }
 
