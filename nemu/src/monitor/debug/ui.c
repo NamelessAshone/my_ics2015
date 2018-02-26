@@ -115,16 +115,19 @@ static int cmd_info(char *args) {
 
 static int cmd_p(char *args) {
 	bool success = false;
-	if(!args) {
+	if(!args) 
 		goto EXCEPTION_NULL_ARGS;
-	}
 	int r = expr(args, &success);
-	printf("val = %d (0x%8x)\n", r, r);
-	
+	if(!success)
+		goto EXCEPTION_EVAL_FAILED;
+	printf("val = %d (0x%08x)\n", r, r);
 	return 1;
 	
 EXCEPTION_NULL_ARGS:
-	printf("No expr to evaluate,please add expression as the argument after command 'p'\n");
+	printf("No expr to evaluate\n");
+	return 0;
+EXCEPTION_EVAL_FAILED:
+	printf("Evaluate the expr \"%s\" failed\n", args);
 	return 0;
 }
 
