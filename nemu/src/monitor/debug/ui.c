@@ -132,18 +132,18 @@ EXCEPTION_EVAL_FAILED:
 }
 
 static int cmd_w(char *args) {
-	uint32_t val1;
+	uint32_t new_val;
 	bool success = true;
-	val1 = expr(args, &success);
+	new_val = expr(args, &success);
 	if(success == false) {
 		printf("Wrong expr\n");
 		return 0;
 	}
-	WP *new = new_wp();	
-	new->val = val1;
-	new->enb = true;
-	strcpy(new->what, args);
-    printf("val of the expr \"%s\" = 0x%08x\n", new->what, val1);
+	WP *n_wp = new_wp();	
+	n_wp->val = new_val;
+	n_wp->enb = true;
+	strcpy(n_wp->what, args);
+    printf("expr \"%s\" = %d (0x%08x)\n", n_wp->what, new_val, new_val);
 	return 0;
 }
 
