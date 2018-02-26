@@ -98,7 +98,7 @@ static int cmd_info(char *args) {
 			   cpu.eax, cpu.ecx, cpu.edx, cpu.ebx);
 		printf(" AX: %04X\t CX: %04X\t DX: %04X\t BX: %04X\n",
 			   reg_w(R_AX), reg_w(R_CX), reg_w(R_DX), reg_w(R_BX));
-		printf(" AH: %02X\t CH: %02X\t DH: %02X\t BH: %02X\n",
+		printf(" AH: %02X\t\t CH: %02X\t\t DH: %02X\t\t BH: %02X\n",
 			   reg_b(R_AH), reg_b(R_CH), reg_b(R_DH), reg_b(R_BH));
 		printf(" AL: %02X\t CL: %02X\t DL: %02X\t BL: %02X\n",
 			   reg_b(R_AL), reg_b(R_CL), reg_b(R_DL), reg_b(R_BL));
