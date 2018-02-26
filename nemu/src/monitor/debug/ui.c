@@ -96,9 +96,9 @@ static int cmd_info(char *args) {
 	} else if(strcmp(args, "r") == 0) {
 		printf("EAX: %08X\tECX: %08X\tEDX: %08X\tEBX: %08X\n",
 			   cpu.eax, cpu.ecx, cpu.edx, cpu.ebx);
-		printf(" AX: %04X\t CX: %04X\t DX: %04X\t BX: %04X\n",
+		printf(" AX: %8.4X\t CX: %8.4X\t DX: %8.4X\t BX: %8.4X\n",
 			   reg_w(R_AX), reg_w(R_CX), reg_w(R_DX), reg_w(R_BX));
-		printf(" AH: %02X\t\t CH: %02X\t\t DH: %02X\t\t BH: %02X\n",
+		printf(" AH: %8.2X\t CH: %8.2X\t DH: %8.2X\t BH: %8.2X\n",
 			   reg_b(R_AH), reg_b(R_CH), reg_b(R_DH), reg_b(R_BH));
 		printf(" AL: %02X\t CL: %02X\t DL: %02X\t BL: %02X\n",
 			   reg_b(R_AL), reg_b(R_CL), reg_b(R_DL), reg_b(R_BL));
