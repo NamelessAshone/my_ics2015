@@ -65,3 +65,7 @@ This is a fork of the demo of NJU 2013 oslab0(the origin repository has been del
 ## NEMU-PAL
 
 This is a fork of Wei Mingzhi's SDLPAL(https://github.com/CecilHarvey/sdlpal). It is obtained by refactoring the original SDLPAL, as well as porting to NEMU.
+
+## MY SCHEDULE
+
+2018/2/26 --------- Lab1 completed
